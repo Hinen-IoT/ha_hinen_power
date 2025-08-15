@@ -1,0 +1,204 @@
+{
+  "config": {
+    "abort": {
+      "access_not_configured": "请阅读我们从Hinen收到的以下消息:\\n\\n{message}",
+      "already_configured": "账户已配置",
+      "no_device": "请连接Hinen设备以使用集成。",
+      "oauth_error": "收到无效的令牌数据。",
+      "oauth_failed": "获取访问令牌时出错。",
+      "oauth_timeout": "解析OAuth令牌超时。",
+      "oauth_unauthorized": "获取访问令牌时OAuth授权错误。",
+      "reauth_successful": "重新认证成功",
+      "unknown": "意外错误",
+      "wrong_account": "错误账户：请使用正确的账户进行认证。"
+    },
+    "error": {
+      "cannot_connect": "连接失败",
+      "invalid_auth": "认证无效"
+    },
+    "step": {
+      "user": {
+        "title": "认证跳转设置",
+                "description": "1. 您的海能用户信息和设备信息将存储在您的Home Assistant系统中。海能无法保证Home Assistant存储机制的安全性。您有责任防止您的信息被盗。\r\n2. 此集成由开源社区维护，可能存在稳定性问题或其他问题。当您遇到与此集成相关的问题时，您应该寻求开源社区的帮助，而不是联系海能客服。\r\n3. 您需要具备一些技术能力来维护您的本地操作环境，此集成对新手用户不友好。\r\n4. 使用此集成前请仔细阅读README。\r\n5. 为了让用户稳定使用集成并避免接口滥用，此集成仅允许在Home Assistant中使用。详情请参考LICENSE。",
+                "data": {
+                  "redirection_url": "重定向地址",
+                  "page_language": "认证页面语言"
+                },
+                "data_description": {
+                  "redirection_url": "",
+                  "page_language": ""
+                }
+      },
+      "devices": {
+        "data": {
+          "devices": "Hinen设备"
+        },
+        "data_description": {
+          "devices": ""
+        },
+        "description": "选择您要添加的设备。"
+      },
+      "reauth_confirm": {
+        "description": "Hinen集成需要重新认证您的账户",
+        "title": "{name}的认证已过期"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "alert_status": {
+        "name": "告警状态"
+      },
+      "status": {
+        "name": "设备状态"
+      },
+      "cumulative_consumption":{
+        "name": "累计用电量"
+      },
+      "cumulative_production_active":{
+        "name": "累计发电量"
+      },
+      "cumulative_grid_feed_in":{
+        "name": "累计并网量"
+      },
+      "total_charging_energy":{
+        "name": "累计充电量"
+      },
+      "total_discharging_energy":{
+        "name": "累计放电量"
+      }
+    },
+    "select": {
+      "work_mode_setting": {
+        "name": "工作模式",
+        "state": {
+          "none": "不启用",
+          "self_consumption": "自发自用",
+          "battery_priority": "电池优先",
+          "grid_priority": "并网优先",
+          "time_period": "时间段控制",
+          "power_keeping": "保电模式"
+        }
+      }
+    },
+    "number": {
+      "load_first_stop_soc": {
+        "name": "电池放电最小SOC"
+      },
+      "charge_stop_soc": {
+        "name": "电池强充截止SOC"
+      },
+      "grid_first_stop_soc": {
+        "name": "电池强放截止SOC"
+      },
+      "cd_period_times_1_start": {
+        "name": "时段1起始时间"
+      },
+      "cd_period_times_1_rate": {
+        "name": "时段1充放电功率百分比"
+      },
+      "cd_period_times_1_end": {
+        "name": "时段1结束时间"
+      },
+      "cd_period_times_1_stop_soc": {
+        "name": "时段1截止SOC"
+      },
+      "cd_period_times_2_start": {
+        "name": "时段2起始时间"
+      },
+      "cd_period_times_2_rate": {
+        "name": "时段2充放电功率百分比"
+      },
+      "cd_period_times_2_end": {
+        "name": "时段2结束时间"
+      },
+      "cd_period_times_2_stop_soc": {
+        "name": "时段2截止SOC"
+      },
+      "cd_period_times_3_start": {
+        "name": "时段3起始时间"
+      },
+      "cd_period_times_3_rate": {
+        "name": "时段3充放电功率百分比"
+      },
+      "cd_period_times_3_end": {
+        "name": "时段3结束时间"
+      },
+      "cd_period_times_3_stop_soc": {
+        "name": "时段3截止SOC"
+      },
+      "cd_period_times_4_start": {
+        "name": "时段4起始时间"
+      },
+      "cd_period_times_4_rate": {
+        "name": "时段4充放电功率百分比"
+      },
+      "cd_period_times_4_end": {
+        "name": "时段4结束时间"
+      },
+      "cd_period_times_4_stop_soc": {
+        "name": "时段4截止SOC"
+      },
+      "cd_period_times_5_start": {
+        "name": "时段5起始时间"
+      },
+      "cd_period_times_5_rate": {
+        "name": "时段5充放电功率百分比"
+      },
+      "cd_period_times_5_end": {
+        "name": "时段5结束时间"
+      },
+      "cd_period_times_5_stop_soc": {
+        "name": "时段5截止SOC"
+      },
+      "cd_period_times_6_start": {
+        "name": "时段6起始时间"
+      },
+      "cd_period_times_6_rate": {
+        "name": "时段6充放电功率百分比"
+      },
+      "cd_period_times_6_end": {
+        "name": "时段6结束时间"
+      },
+      "cd_period_times_6_stop_soc": {
+        "name": "时段6截止SOC"
+      }
+    },
+    "switch": {
+      "cd_period_times_1_enable": {
+        "name": "时段1使能"
+      },
+      "cd_period_times_2_enable": {
+        "name": "时段2使能"
+      },
+      "cd_period_times_3_enable": {
+        "name": "时段3使能"
+      },
+      "cd_period_times_4_enable": {
+        "name": "时段4使能"
+      },
+      "cd_period_times_5_enable": {
+        "name": "时段5使能"
+      },
+      "cd_period_times_6_enable": {
+        "name": "时段6使能"
+      }
+    }
+  },
+  "options": {
+    "abort": {
+      "no_device":"请连接Hinen设备以使用集成。"
+    },
+    "step": {
+      "init": {
+        "data": {
+          "devices": "Hinen 设备"
+        },
+        "data_description": {
+          "devices": ""
+        },
+        "description": "选择您要添加的设备。"
+      }
+    }
+  }
+}
