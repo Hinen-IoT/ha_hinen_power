@@ -20,8 +20,7 @@ cd ha_hinen_power
 ./install.sh /config
 ```
 
-推荐使用此方法安装海能集成。当您想要更新至特定版本时，只需要切换至相应的 Tag 。
-
+推荐使用此方法安装海能集成。当有特定版本且您想要更新至特定版本时，只需要切换至相应的 Tag 。
 例如，更新海能集成版本至 v1.0.0
 
 ```bash
@@ -30,6 +29,8 @@ git fetch
 git checkout v1.0.0
 ./install.sh /config
 ```
+
+注意：以上“/config”需要替换成本地HASS配置目录路径
 
 ### 方法 2: [HACS](https://hacs.xyz/)
 
@@ -86,9 +87,9 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
 # 自定义卡片
 可选：根据hinen的相关实体简单配置自定义卡片示例，以达到更好对Hinen设备控制的效果
 
-设置自定义卡片，需要将**设备标识**替换成**自己的设备标识**，步骤如下
+设置自定义卡片，需要将卡片配置中的**设备标识**替换成**自己的设备标识**，步骤如下
 1. 进入"**首页>开发者工具>模板**"，将以下yaml配置放到模板中。
-2. 找到任意一个实体，查看实体标识**获取对应设备标识**。例如：设备状态实体（sensor.6kw_0048_status），“6kw_0048” 是设备标识
+2. 找到任意一个实体，查看实体标识**获取对应设备标识**。例如：设备状态实体（sensor.6kw_0048_status），设备标识为“6kw_0048” 
 3. 将**device_name**变量值更新为自己设备标识
 4. 复制生成的yaml配置
 5. 进入"**首页>概览>编辑>添加卡片>手动编辑**"，将复制的yaml配置放到模板中点击完成即可
@@ -96,7 +97,7 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
 ## 设备工作模式设置
 
 ```yaml
-{% set device_name = "your device" %}
+{% set device_name = "你的设备标识" %}
 
 type: entities
 entities:
@@ -109,7 +110,7 @@ state_color: true
 ## 根据工作模式显示各个模式下关联的属性
 
 ```yaml
-{% set device_name = "6kw_0048" %}
+{% set device_name = "你的设备标识" %}
 
 type: vertical-stack
 cards:
