@@ -2,16 +2,16 @@
 
 [English](./README.md) | [简体中文](./doc/README_zh.md)
 
-海能集成是一个由海能官方提供支持的 Home Assistant 的集成组件，它可以让您在 Home Assistant 中使用海能 IoT 智能设备。
+Hinen Power integration is an official Home Assistant integration component provided by Hinen, which allows you to use Hinen IoT smart devices in Home Assistant.
 
-## 安装
+## Installation
 
-> Home Assistant 版本要求：
+> Home Assistant version requirements:
 >
-> - Core $\geq$ 2025.8.1
-> - Operating System $\geq$ 13.0
+> - Core ≥ 2025.8.1
+> - Operating System ≥ 13.0
 
-### 方法 1：使用 git clone 命令从 GitHub 下载
+### Method 1: Download from GitHub using git clone command
 
 ```bash
 cd config
@@ -20,9 +20,9 @@ cd ha_hinen_power
 ./install.sh /config
 ```
 
-推荐使用此方法安装海能集成。当您想要更新至特定版本时，只需要切换至相应的 Tag 。
+It is recommended to use this method to install the Hinen integration. When you want to update to a specific version, you only need to switch to the corresponding Tag.
 
-例如，更新海能集成版本至 v1.0.0
+For example, to update the Hinen integration version to v1.0.0
 
 ```bash
 cd config/ha_hinen_power
@@ -31,70 +31,71 @@ git checkout v1.0.0
 ./install.sh /config
 ```
 
-### 方法 2: [HACS](https://hacs.xyz/)
+### Method 2: [HACS](https://hacs.xyz/)
 
-一键从 HACS 安装海能集成：
+Install the Hinen integration from HACS with one click:
 
-待集成
+Pending integration
 
-### 方法 3：通过 [Samba](https://github.com/home-assistant/addons/tree/master/samba) 或 [FTPS](https://github.com/hassio-addons/addon-ftp) 手动安装
+### Method 3: Manual installation via [Samba](https://github.com/home-assistant/addons/tree/master/samba) or [FTPS](https://github.com/hassio-addons/addon-ftp)
 
-下载并将 `custom_components/hinen_power` 文件夹复制到 Home Assistant 的 `config/custom_components` 文件夹下。
+Download and copy the `custom_components/hinen_power` folder to the `config/custom_components` folder of Home Assistant.
 
-# 实体
-Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添加的每一个设备，会创建以下实体：
+# Entities
+The Hinen Power integration allows you to connect Hinen devices to Home Assistant. For each device you add, the following entities will be created:
 
-- 传感器
-  - 告警状态
-  - 设备状态
-  - 累计用电量
-  - 累计发电量
-  - 累计并网量
-  - 累计充电量
-  - 累计放电量
+- Sensor
+  - Alert status
+  - Device status
+  - Cumulative electricity consumption
+  - Cumulative power generation
+  - Cumulative grid connection
+  - Cumulative charging
+  - Cumulative discharging
 
-- 选择器
-  - 工作模式（状态选项：不启用、自发自用、电池优先、并网优先、时间段控制、保电模式）
+- Select
+  - Working mode (state options: not enabled, self-consumption, battery priority, grid priority, time period control, power protection mode)
 
-- 数字
-  - 电池放电最小SOC
-  - 电池强充截止SOC
-  - 电池强放截止SOC
-  - 时段相关控制（6个：时段1，时段2，时段3，时段4，时段5，时段6，若无设置则默认值都是0）
-    - 时段1起始时间
-    - 时段1充放电功率百分比
-    - 时段1结束时间
-    - 时段1截止SOC
+- Number
+  - Battery discharge minimum SOC
+  - Battery charge cutoff SOC
+  - Battery discharge cutoff SOC
+  - Time period related control (6: Period 1, Period 2, Period 3, Period 4, Period 5, Period 6, if not set, the default value is 0)
+    - Period 1 start time
+    - Period 1 charge/discharge power percentage
+    - Period 1 end time
+    - Period 1 cutoff SOC
   
-- 开关 (配合工作模式：时间段控制使用）
-  - 时段1使能
-  - 时段2使能
-  - 时段3使能
-  - 时段4使能
-  - 时段5使能
-  - 时段6使能
+- Switch (used in conjunction with working mode: time period control)
+  - Period 1 enable
+  - Period 2 enable
+  - Period 3 enable
+  - Period 4 enable
+  - Period 5 enable
+  - Period 6 enable
 
-# 前提条件
+# Prerequisites
 
-为了能够使用该集成，您需要有一个对应的Hinen Solar账号且您的账号下需要有一台或以上设备；
+To use this integration, you need to have a corresponding Hinen Solar account and one or more devices under your account;
 
-# 配置
-1. 跳转到Hinen oauth2认证页面
-2. 选择您的地区以及登录您的Hinen Solar账号
-3. 如果一切正常，会跳转到指定重定向地址进行授权并显示账号下的所有可选设备
+# Configuration
 
-# 自定义卡片
-可选：根据hinen的相关实体简单配置自定义卡片示例，以达到更好对Hinen设备控制的效果
+1. Jump to the Hinen oauth2 authentication page
+2. Select your region and log in to your Hinen Solar account
+3. If everything is normal, it will jump to the specified redirect address for authorization and display all optional devices under the account
 
-设置自定义卡片，需要将**设备标识**替换成**自己的设备标识**，步骤如下
+# Custom Cards
+Optional: Simply configure custom card examples based on Hinen's related entities to achieve better control of Hinen devices
 
-1. 进入"**首页>开发者工具>模板**"，将以下yaml配置放到模板中
-2. 找到任意一个实体查看实体标识**获取对应设备标识**
-3. 将**device_name**更新为自己设备标识
-4. 复制生成的yaml配置
-5. 进入"**首页>概览>编辑>添加卡片>手动编辑**"，将复制的yaml配置放到模板中点击完成即可
+To set up a custom card, you need to replace the **device identifier** with **your own device identifier**, the steps are as follows
 
-### 设备工作模式设置
+1. Go to "**Home > Developer Tools > Templates**" and put the following yaml configuration into the template
+2. Find any entity to view the entity identifier **to get the corresponding device identifier**
+3. Update **device_name** with your own device identifier
+4. Copy the generated yaml configuration
+5. Go to "**Home > Overview > Edit > Add Card > Manual Edit**", put the copied yaml configuration into the template and click finish
+
+### Device Working Mode Settings
 
 ```yaml
 {% set device_name = "6kw_0048" %}
@@ -103,10 +104,10 @@ entities:
   - entity: select.{{device_name}}_work_mode
   - entity: sensor.{{device_name}}_status
   - entity: sensor.{{device_name}}_alert_status
-title: 工作模式设置
+title: Working Mode Settings
 state_color: true
 ```
-### 根据工作模式显示各个模式下关联的属性
+### Display attributes associated with each mode according to working mode
 
 ```yaml
 {% set device_name = "6kw_0048" %}
@@ -120,10 +121,10 @@ cards:
         state: self_consumption
     card:
       type: entities
-      title: 自发自用
+      title: Self-consumption
       entities:
         - entity: number.{{ device_name }}_looad_first_stop_soc
-          name: 电池放电最小SOC
+          name: Battery discharge minimum SOC
           secondary_info: last-updated
   
   - type: conditional
@@ -133,11 +134,11 @@ cards:
         state: battery_priority
     card:
       type: entities
-      title: 电池优先
+      title: Battery priority
       entities:
         - entity: number.{{ device_name }}_charge_stop_soc
           secondary_info: last-updated
-          name: 电池强充截止SOC
+          name: Battery charge cutoff SOC
   
   - type: conditional
     conditions:
@@ -146,11 +147,11 @@ cards:
         state: grid_priority
     card:
       type: entities
-      title: 并网优先
+      title: Grid priority
       entities:
         - entity: number.{{ device_name }}_grid_first_stop_soc
           secondary_info: last-updated
-          name: 电池强放截止SOC
+          name: Battery discharge cutoff SOC
   
   - type: conditional
     conditions:
@@ -159,21 +160,21 @@ cards:
         state: time_period
     card:
       type: entities
-      title: ⚡充放电优先时段配置
+      title: ⚡Charge/discharge priority time period configuration
       entities:
         {% for period in range(1, 7) %}
         - type: section
-          label: 时段{{ period }}
+          label: Period {{ period }}
         - entity: switch.{{ device_name }}_cd_period_{{ period }}_enable
-          name: 启用
+          name: Enable
         - entity: number.{{ device_name }}_cd_period_{{ period }}_rate
-          name: 速率
+          name: Rate
         - entity: number.{{ device_name }}_cd_period_{{ period }}_stop_soc
-          name: 截止SOC
+          name: Cutoff SOC
         - entity: number.{{ device_name }}_cd_period_{{ period }}_start
-          name: 开始时间
+          name: Start time
         - entity: number.{{ device_name }}_cd_period_{{ period }}_end
-          name: 结束时间
+          name: End time
         {% endfor %}
       show_header_toggle: false
       state_color: true
