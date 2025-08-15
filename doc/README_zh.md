@@ -87,17 +87,17 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
 可选：根据hinen的相关实体简单配置自定义卡片示例，以达到更好对Hinen设备控制的效果
 
 设置自定义卡片，需要将**设备标识**替换成**自己的设备标识**，步骤如下
-
-1. 进入"**首页>开发者工具>模板**"，将以下yaml配置放到模板中
-2. 找到任意一个实体查看实体标识**获取对应设备标识**
-3. 将**device_name**更新为自己设备标识
+1. 进入"**首页>开发者工具>模板**"，将以下yaml配置放到模板中。
+2. 找到任意一个实体，查看实体标识**获取对应设备标识**。例如：设备状态实体（sensor.6kw_0048_status），“6kw_0048” 是设备标识
+3. 将**device_name**变量值更新为自己设备标识
 4. 复制生成的yaml配置
 5. 进入"**首页>概览>编辑>添加卡片>手动编辑**"，将复制的yaml配置放到模板中点击完成即可
 
-### 设备工作模式设置
+## 设备工作模式设置
 
 ```yaml
-{% set device_name = "6kw_0048" %}
+{% set device_name = "your device" %}
+
 type: entities
 entities:
   - entity: select.{{device_name}}_work_mode
@@ -106,7 +106,7 @@ entities:
 title: 工作模式设置
 state_color: true
 ```
-### 根据工作模式显示各个模式下关联的属性
+## 根据工作模式显示各个模式下关联的属性
 
 ```yaml
 {% set device_name = "6kw_0048" %}

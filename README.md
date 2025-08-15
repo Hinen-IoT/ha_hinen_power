@@ -31,6 +31,8 @@ git checkout v1.0.0
 ./install.sh /config
 ```
 
+Note: The following "/config" needs to be replaced with the local HASS configuration directory path.
+
 ### Method 2: [HACS](https://hacs.xyz/)
 
 Install the Hinen integration from HACS with one click:
@@ -89,16 +91,19 @@ Optional: Simply configure custom card examples based on Hinen's related entitie
 
 To set up a custom card, you need to replace the **device identifier** with **your own device identifier**, the steps are as follows
 
-1. Go to "**Home > Developer Tools > Templates**" and put the following yaml configuration into the template
-2. Find any entity to view the entity identifier **to get the corresponding device identifier**
-3. Update **device_name** with your own device identifier
+1. Go to "**Home > Developer Tools > Templates**" and put the following yaml configuration into the template.
+2. Find any entity to view the entity identifier **to get the corresponding device identifier**. For example: device status entity (sensor.6kw_0048_status), the device identifier is "6kw_0048".
+3. Update the **device_name** variable value with your own device identifier
 4. Copy the generated yaml configuration
 5. Go to "**Home > Overview > Edit > Add Card > Manual Edit**", put the copied yaml configuration into the template and click finish
+
+It is recommended to use this method to install the Hinen integration. When there is a specific version and you want to update to a specific version, you only need to switch to the corresponding Tag.
 
 ### Device Working Mode Settings
 
 ```yaml
-{% set device_name = "6kw_0048" %}
+{% set device_name = "device identifier" %}
+
 type: entities
 entities:
   - entity: select.{{device_name}}_work_mode
@@ -110,7 +115,7 @@ state_color: true
 ### Display attributes associated with each mode according to working mode
 
 ```yaml
-{% set device_name = "6kw_0048" %}
+{% set device_name = "device identifier" %}
 
 type: vertical-stack
 cards:
