@@ -1,6 +1,6 @@
 # Home Assistant Hinen Power
 
-[English](./README.md) | [简体中文](./doc/README_zh.md)
+[English](../README.md) | [简体中文](./README_zh.md)
 
 海能集成是一个由海能官方提供支持的 Home Assistant 的集成组件，它可以让您在 Home Assistant 中使用海能 IoT 智能设备。
 
