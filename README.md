@@ -128,7 +128,7 @@ cards:
       type: entities
       title: Self-consumption
       entities:
-        - entity: number.{{ device_name }}_looad_first_stop_soc
+        - entity: number.{{ device_name }}_load_first_stop_soc
           name: Battery discharge minimum SOC
           secondary_info: last-updated
   

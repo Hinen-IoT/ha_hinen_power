@@ -123,7 +123,7 @@ cards:
       type: entities
       title: 自发自用
       entities:
-        - entity: number.{{ device_name }}_looad_first_stop_soc
+        - entity: number.{{ device_name }}_load_first_stop_soc
           name: 电池放电最小SOC
           secondary_info: last-updated
   
