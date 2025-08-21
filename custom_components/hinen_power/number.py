@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import logging
+from dataclasses import dataclass
 
 from homeassistant.components.number import NumberEntity, NumberEntityDescription
 from homeassistant.config_entries import ConfigEntry
@@ -11,7 +11,15 @@ from homeassistant.const import PERCENTAGE, EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import AUTH, CD_PERIOD_TIMES2, COORDINATOR, DOMAIN
+from .const import (
+    AUTH,
+    CD_PERIOD_TIMES2,
+    CHARGE_STOP_SOC,
+    COORDINATOR,
+    DOMAIN,
+    GRID_FIRST_STOP_SOC,
+    LOAD_FIRST_STOP_SOC,
+)
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
 from .hinen import HinenOpen
@@ -34,8 +42,8 @@ class HinenCDPeriodTimesEntityDescription(NumberEntityDescription):
 
 NUMBER_TYPES = [
     HinenNumberEntityDescription(
-        key="load_first_stop_soc",
-        translation_key="load_first_stop_soc",
+        key=LOAD_FIRST_STOP_SOC,
+        translation_key=LOAD_FIRST_STOP_SOC,
         entity_category=EntityCategory.CONFIG,
         native_min_value=10,
         native_max_value=100,
@@ -43,8 +51,8 @@ NUMBER_TYPES = [
         native_unit_of_measurement=PERCENTAGE,
     ),
     HinenNumberEntityDescription(
-        key="charge_stop_soc",
-        translation_key="charge_stop_soc",
+        key=CHARGE_STOP_SOC,
+        translation_key=CHARGE_STOP_SOC,
         entity_category=EntityCategory.CONFIG,
         native_min_value=0,
         native_max_value=100,
@@ -52,8 +60,8 @@ NUMBER_TYPES = [
         native_unit_of_measurement=PERCENTAGE,
     ),
     HinenNumberEntityDescription(
-        key="grid_first_stop_soc",
-        translation_key="grid_first_stop_soc",
+        key=GRID_FIRST_STOP_SOC,
+        translation_key=GRID_FIRST_STOP_SOC,
         entity_category=EntityCategory.CONFIG,
         native_min_value=10,
         native_max_value=100,

@@ -93,19 +93,19 @@ class HinenOpen:
     async def _check_request_return(self, response: ClientResponse) -> ClientResponse:
         if response.status == 500:
             msg = (await response.json()).get("msg")
-            traceId = (await response.json()).get("traceId")
+            trace_id = (await response.json()).get("traceId")
             raise HinenBackendError(
                 "Internal Server Error"
                 + ("" if msg is None else f" - {msg!s}")
-                + ("" if traceId is None else f" - {traceId!s}"),
+                + ("" if trace_id is None else f" - {trace_id!s}"),
             )
         if response.status == 400:
             msg = (await response.json()).get("msg")
-            traceId = (await response.json()).get("traceId")
+            trace_id = (await response.json()).get("traceId")
             raise HinenBackendError(
                 "Bad Request"
                 + ("" if msg is None else f" - {msg!s}")
-                + ("" if traceId is None else f" - {traceId!s}"),
+                + ("" if trace_id is None else f" - {trace_id!s}"),
             )
         if response.status == 404:
             raise HinenResourceNotFoundError
@@ -122,10 +122,10 @@ class HinenOpen:
                 raise HinenAPIError from exc
         if (await response.json()).get("code") != "00000":
             msg = (await response.json()).get("msg")
-            traceId = (await response.json()).get("traceId")
+            trace_id = (await response.json()).get("traceId")
             raise HinenBackendError(
                 ("" if msg is None else f" - {msg!s}")
-                + ("" if traceId is None else f" - {traceId!s}")
+                + ("" if trace_id is None else f" - {trace_id!s}")
             )
 
         return response
@@ -162,11 +162,11 @@ class HinenOpen:
             self.session = ClientSession()
             self._close_session = True
         try:
-            _url = f"{self.host}{url}"
+            url = f"{self.host}{url}"
             if url_params:
-                _url = await self.build_url(_url, url_params)
+                url = await self.build_url(url, url_params)
             async with asyncio.timeout(self.session_timeout):
-                response = await method(self.session, _url, body_data)
+                response = await method(self.session, url, body_data)
 
             if response.content_type != "application/json":
                 msg = "Unexpected response type"
