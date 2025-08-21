@@ -75,7 +75,8 @@ class HinenImplementation(AuthImplementation):
         url = self.authorize_url
         language = self.hass.data[ATTR_AUTH_LANGUAGE]
         key = self.client_id
-        redirectUrl = f"{self.hass.data[ATTR_REDIRECTION_URL]}/auth/hinen/callback"
+        # custom redirect url
+        redirect_url = f"{self.hass.data[ATTR_REDIRECTION_URL]}/auth/hinen/callback"
         if (
             secret := self.hass.data.get(config_entry_oauth2_flow.DATA_JWT_SECRET)
         ) is None:
@@ -89,7 +90,7 @@ class HinenImplementation(AuthImplementation):
             algorithm="HS256",
         )
 
-        return f"{url}?&state={state}&language={language}&key={key}&redirectUrl={redirectUrl}"
+        return f"{url}?&state={state}&language={language}&key={key}&redirectUrl={redirect_url}"
 
     async def async_resolve_external_data(self, external_data: Any) -> dict:
         """Resolve the authorization code to tokens."""

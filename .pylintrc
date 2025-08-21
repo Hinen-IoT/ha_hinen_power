@@ -51,6 +51,7 @@ confidence=
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
 disable=R,
+        unexpected-keyword-arg,
         abstract-method,
         apply-builtin,
         arguments-differ,
@@ -238,7 +239,7 @@ generated-members=
 [FORMAT]
 
 # Maximum number of characters on a single line.
-max-line-length=80
+#max-line-length=80
 
 # TODO(https://github.com/pylint-dev/pylint/issues/3352): Direct pylint to exempt
 # lines made too long by directives to pytype.
