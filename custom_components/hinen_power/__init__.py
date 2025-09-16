@@ -21,13 +21,12 @@ from . import application_credentials
 from .auth_config import AsyncConfigEntryAuth
 from .const import AUTH, CLIENT_ID, COORDINATOR, DOMAIN
 from .coordinator import HinenDataUpdateCoordinator
-from .models import HinenClient, HinenIntegrationConfigEntry
 
 PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR, Platform.SWITCH]
 
 
 async def async_setup_entry(
-    hass: HomeAssistant, entry: HinenIntegrationConfigEntry
+    hass: HomeAssistant, entry: ConfigEntry
 ) -> bool:
     """Set up the Hinen Auth component."""
     credential: ClientCredential = ClientCredential(CLIENT_ID, "")
@@ -63,9 +62,6 @@ async def async_setup_entry(
         COORDINATOR: coordinator,
         AUTH: auth,
     }
-
-    client = HinenClient()
-    entry.runtime_data = client
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 

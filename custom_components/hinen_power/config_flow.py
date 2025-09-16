@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 import logging
+from collections.abc import Mapping
 from typing import Any
 
 import voluptuous as vol
-
+from hinen_open_api import HinenOpen
+from hinen_open_api.exceptions import ForbiddenError
 from homeassistant.components.application_credentials import ClientCredential
 from homeassistant.config_entries import (
     SOURCE_REAUTH,
@@ -37,8 +38,6 @@ from .const import (
     LOGGER,
     SUPPORTED_LANGUAGES,
 )
-from .hinen import HinenOpen
-from .hinen_exception import ForbiddenError
 
 
 class OAuth2FlowHandler(

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import logging
+from dataclasses import dataclass
 
+from hinen_open_api import HinenOpen
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EntityCategory
@@ -21,7 +22,6 @@ from .const import (
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
-from .hinen import HinenOpen
 
 _LOGGER = logging.getLogger(__name__)
 

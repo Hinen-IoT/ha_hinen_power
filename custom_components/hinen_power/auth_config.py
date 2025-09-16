@@ -1,19 +1,20 @@
 """API for hello auth bound to Home Assistant OAuth."""
 
-from json import JSONDecodeError
 import logging
 import secrets
+from json import JSONDecodeError
 from typing import Any, cast
 
-from aiohttp import ClientError, web
 import jwt
-from yarl import URL
-
+from aiohttp import ClientError, web
+from hinen_open_api import HinenOpen
+from hinen_open_api.utils import RespUtil
 from homeassistant.components.application_credentials import AuthImplementation
 from homeassistant.const import CONF_ACCESS_TOKEN
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_entry_oauth2_flow, http
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from yarl import URL
 
 from .const import (
     ATTR_AUTH_LANGUAGE,
@@ -24,8 +25,6 @@ from .const import (
     HOST,
     REGION_CODE,
 )
-from .hinen import HinenOpen
-from .util import RespUtil
 
 _LOGGER = logging.getLogger(__name__)
 

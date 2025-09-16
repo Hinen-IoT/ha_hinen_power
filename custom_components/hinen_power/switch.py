@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import logging
+from dataclasses import dataclass
 from typing import Any
 
+from hinen_open_api import HinenOpen
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EntityCategory
@@ -15,7 +16,6 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from .const import AUTH, CD_PERIOD_TIMES2, COORDINATOR, DOMAIN
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
-from .hinen import HinenOpen
 
 _LOGGER = logging.getLogger(__name__)
 
