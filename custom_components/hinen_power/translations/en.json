@@ -162,6 +162,21 @@
             },
             "total_discharging_energy": {
                 "name": "Total Discharging Energy"
+            },
+            "generation_power": {
+                "name": "Generation Power"
+            },
+            "total_load_power": {
+                "name": "Total Load Power"
+            },
+            "battery_power": {
+                "name": "Battery Power"
+            },
+            "grid_total_power": {
+                "name": "Grid Total Power"
+            },
+            "soc": {
+                "name": "State of Charge"
             }
         },
         "switch": {

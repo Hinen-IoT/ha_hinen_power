@@ -49,6 +49,13 @@ CUMULATIVE_PRODUCTION_ACTIVE = "cumulative_production_active"
 CUMULATIVE_GRID_FEED_IN = "cumulative_grid_feed_in"
 TOTAL_CHARGING_ENERGY = "total_charging_energy"
 TOTAL_DISCHARGING_ENERGY = "total_discharging_energy"
+# Power sensors
+GENERATION_POWER = "generation_power"
+TOTAL_LOAD_POWER = "total_load_power"
+BATTERY_POWER = "battery_power"
+GRID_TOTAL_POWER = "grid_total_power"
+# Battery charge level sensor
+SOC = "soc"
 
 PROPERTIES = {
     LOAD_FIRST_STOP_SOC: "LoadFirstStopSOC",
@@ -61,6 +68,13 @@ PROPERTIES = {
     CUMULATIVE_GRID_FEED_IN: "CumulativeGridFeedIn",
     TOTAL_CHARGING_ENERGY: "TotalChargingEnergy",
     TOTAL_DISCHARGING_ENERGY: "TotalDischargingEnergy",
+    # Power sensors
+    GENERATION_POWER: "GenerationPower",
+    TOTAL_LOAD_POWER: "TotalLoadPower",
+    BATTERY_POWER: "BatteryPower",
+    GRID_TOTAL_POWER: "GridTotalPower",
+    # Battery charge level sensor
+    SOC: "SOC",
 }
 
 ATTR_AUTH_LANGUAGE = "page_language"

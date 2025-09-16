@@ -66,6 +66,21 @@
       },
       "total_discharging_energy":{
         "name": "累计放电量"
+      },
+      "generation_power":{
+        "name": "发电功率"
+      },
+      "total_load_power":{
+        "name": "负载功率"
+      },
+      "battery_power":{
+        "name": "电池功率"
+      },
+      "grid_total_power":{
+        "name": "电网功率"
+      },
+      "soc":{
+        "name": "电池剩余容量"
       }
     },
     "select": {

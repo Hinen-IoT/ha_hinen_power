@@ -22,13 +22,18 @@ from .const import (
     ATTR_ALERT_STATUS,
     ATTR_STATUS,
     AUTH,
+    BATTERY_POWER,
     COORDINATOR,
     CUMULATIVE_CONSUMPTION,
     CUMULATIVE_GRID_FEED_IN,
     CUMULATIVE_PRODUCTION_ACTIVE,
     DOMAIN,
+    GENERATION_POWER,
+    GRID_TOTAL_POWER,
+    SOC,
     TOTAL_CHARGING_ENERGY,
     TOTAL_DISCHARGING_ENERGY,
+    TOTAL_LOAD_POWER,
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
@@ -59,6 +64,53 @@ SENSOR_TYPES = [
         value_fn=lambda device_detail: DeviceAlertStatus.get_display_name(
             device_detail[ATTR_ALERT_STATUS]
         ),
+    ),
+    # Power sensors
+    HinenSensorEntityDescription(
+        key=GENERATION_POWER,
+        translation_key=GENERATION_POWER,
+        available_fn=lambda device_detail: device_detail[GENERATION_POWER] is not None,
+        value_fn=lambda device_detail: device_detail[GENERATION_POWER],
+        native_unit_of_measurement="W",
+        device_class=SensorDeviceClass.POWER,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    HinenSensorEntityDescription(
+        key=TOTAL_LOAD_POWER,
+        translation_key=TOTAL_LOAD_POWER,
+        available_fn=lambda device_detail: device_detail[TOTAL_LOAD_POWER] is not None,
+        value_fn=lambda device_detail: device_detail[TOTAL_LOAD_POWER],
+        native_unit_of_measurement="W",
+        device_class=SensorDeviceClass.POWER,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    HinenSensorEntityDescription(
+        key=BATTERY_POWER,
+        translation_key=BATTERY_POWER,
+        available_fn=lambda device_detail: device_detail[BATTERY_POWER] is not None,
+        value_fn=lambda device_detail: device_detail[BATTERY_POWER],
+        native_unit_of_measurement="W",
+        device_class=SensorDeviceClass.POWER,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    HinenSensorEntityDescription(
+        key=GRID_TOTAL_POWER,
+        translation_key=GRID_TOTAL_POWER,
+        available_fn=lambda device_detail: device_detail[GRID_TOTAL_POWER] is not None,
+        value_fn=lambda device_detail: device_detail[GRID_TOTAL_POWER],
+        native_unit_of_measurement="W",
+        device_class=SensorDeviceClass.POWER,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    # Battery charge level sensor
+    HinenSensorEntityDescription(
+        key=SOC,
+        translation_key=SOC,
+        available_fn=lambda device_detail: device_detail[SOC] is not None,
+        value_fn=lambda device_detail: device_detail[SOC],
+        native_unit_of_measurement="%",
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     HinenSensorEntityDescription(
         key=CUMULATIVE_CONSUMPTION,

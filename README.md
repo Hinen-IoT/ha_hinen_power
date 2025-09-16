@@ -54,6 +54,11 @@ The Hinen Power integration allows you to connect Hinen devices to Home Assistan
   - Cumulative grid connection
   - Cumulative charging
   - Cumulative discharging
+  - Generation power
+  - Total load power
+  - Battery power
+  - Grid total power
+  - State of charge
 
 - Select
   - Working mode (state options: not enabled, self-consumption, battery priority, grid priority, time period control, power protection mode)
@@ -84,7 +89,7 @@ To use this integration, you need to have a corresponding Hinen Solar account an
 
 1. Jump to the Hinen oauth2 authentication page
 2. Select your region and log in to your Hinen Solar account
-3. If everything is normal, it will jump to the specified redirect address for authorization and display all optional devices under the account
+3. If everything is normal, you will be redirected to your Home Assistant instance for authorization and a list of all available devices under your account will be displayed.
 
 # Custom Cards
 Optional: Simply configure custom card examples based on Hinen's related entities to achieve better control of Hinen devices
