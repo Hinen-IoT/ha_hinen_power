@@ -55,7 +55,7 @@ class OAuth2FlowHandler(
     @staticmethod
     @callback
     def async_get_options_flow(
-        config_entry: ConfigEntry,
+        config_entry: ConfigEntry,  # pylint: disable=unused-argument
     ) -> HinenOpenFlowHandler:
         """Get the options flow for this handler."""
         return HinenOpenFlowHandler()
@@ -97,7 +97,7 @@ class OAuth2FlowHandler(
         )
 
     async def async_step_reauth(
-        self, entry_data: Mapping[str, Any]
+        self, entry_data: Mapping[str, Any] # pylint: disable=unused-argument
     ) -> ConfigFlowResult:
         """Perform reauth upon an API authentication error."""
         return await self.async_step_reauth_confirm()
@@ -137,7 +137,7 @@ class OAuth2FlowHandler(
                 reason="access_not_configured",
                 description_placeholders={"message": error},
             )
-        except Exception as ex:  # noqa: BLE001
+        except Exception as ex:  # noqa: BLE001  pylint: disable=broad-exception-caught
             LOGGER.error("Unknown error occurred: %s", ex.args)
             return self.async_abort(reason="unknown")
         self._title = device_infos[0].device_name

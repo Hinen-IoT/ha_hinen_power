@@ -86,11 +86,11 @@ class HinenCDPeriodEnableSwitch(HinenDeviceEntity, SwitchEntity):
         period_data = cd_period_times[self.entity_description.period_index]
         return bool(period_data.get("periodEnable", 0))
 
-    async def async_turn_on(self, **kwargs: Any) -> None:
+    async def async_turn_on(self, **kwargs: Any) -> None: # pylint: disable=unused-argument
         """Turn the switch on."""
         await self._set_enable_value(True)
 
-    async def async_turn_off(self, **kwargs: Any) -> None:
+    async def async_turn_off(self, **kwargs: Any) -> None: # pylint: disable=unused-argument
         """Turn the switch off."""
         await self._set_enable_value(False)
 
