@@ -176,7 +176,7 @@
                 "name": "Grid Total Power"
             },
             "soc": {
-                "name": "State of Charge"
+                "name": "Total Battery SoC"
             }
         },
         "switch": {

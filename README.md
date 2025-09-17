@@ -114,6 +114,11 @@ entities:
   - entity: select.{{device_name}}_work_mode
   - entity: sensor.{{device_name}}_status
   - entity: sensor.{{device_name}}_alert_status
+  - entity: sensor.{{device_name}}_generation_power
+  - entity: sensor.{{device_name}}_total_load_power
+  - entity: sensor.{{device_name}}_battery_power
+  - entity: sensor.{{device_name}}_grid_total_power
+  - entity: sensor.{{device_name}}_total_battery_soc
 title: Working Mode Settings
 state_color: true
 ```
