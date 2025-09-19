@@ -10,5 +10,5 @@
   "issue_tracker": "https://github.com/Hinen-IoT/ha_hinen_power/issues",
   "quality_scale": "bronze",
   "requirements": ["hinen-open-api==1.0.0"],
-  "version": "0.1.0"
+  "version": "1.0.1"
 }
