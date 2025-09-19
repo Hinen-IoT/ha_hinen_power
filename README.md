@@ -87,9 +87,10 @@ To use this integration, you need to have a corresponding Hinen Solar account an
 
 # Configuration
 
-1. Jump to the Hinen oauth2 authentication page
-2. Select your region and log in to your Hinen Solar account
-3. If everything is normal, you will be redirected to your Home Assistant instance for authorization and a list of all available devices under your account will be displayed.
+1. Add the integration and configure the redirect URL on the configuration page (Note: The redirect URL is the address of your Home Assistant instance, which should not end with "/").
+2. Jump to the Hinen oauth2 authentication page
+3. Select your region and log in to your Hinen Solar account
+4. If everything is normal, you will be redirected to your Home Assistant instance for authorization and a list of all available devices under your account will be displayed.
 
 # Custom Cards
 Optional: Simply configure custom card examples based on Hinen's related entities to achieve better control of Hinen devices
