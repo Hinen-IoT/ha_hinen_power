@@ -58,7 +58,7 @@ The Hinen Power integration allows you to connect Hinen devices to Home Assistan
   - Total load power
   - Battery power
   - Grid total power
-  - State of charge
+  - Total Battery SoC
 
 - Select
   - Working mode (state options: not enabled, self-consumption, battery priority, grid priority, time period control, power protection mode)
