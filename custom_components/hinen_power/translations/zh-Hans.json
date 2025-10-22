@@ -67,6 +67,9 @@
       "total_discharging_energy":{
         "name": "累计放电量"
       },
+      "cumulative_energy_purchased":{
+        "name": "累计购电量"
+      },
       "generation_power":{
         "name": "发电功率"
       },

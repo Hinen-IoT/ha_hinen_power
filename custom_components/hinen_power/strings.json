@@ -83,6 +83,9 @@
       "total_discharging_energy": {
         "name": "Total Discharging Energy"
       },
+      "cumulative_energy_purchased": {
+        "name": "Cumulative Energy Purchased"
+      },
       "generation_power": {
         "name": "Generation Power"
       },

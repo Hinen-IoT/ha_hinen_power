@@ -52,6 +52,7 @@ The Hinen Power integration allows you to connect Hinen devices to Home Assistan
   - Cumulative electricity consumption
   - Cumulative power generation
   - Cumulative grid connection
+  - Cumulative energy purchased
   - Cumulative charging
   - Cumulative discharging
   - Generation power

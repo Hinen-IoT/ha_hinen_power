@@ -25,6 +25,7 @@ from .const import (
     BATTERY_POWER,
     COORDINATOR,
     CUMULATIVE_CONSUMPTION,
+    CUMULATIVE_ENERGY_PURCHASED,
     CUMULATIVE_GRID_FEED_IN,
     CUMULATIVE_PRODUCTION_ACTIVE,
     DOMAIN,
@@ -158,6 +159,16 @@ SENSOR_TYPES = [
         available_fn=lambda device_detail: device_detail[TOTAL_DISCHARGING_ENERGY]
         is not None,
         value_fn=lambda device_detail: device_detail[TOTAL_DISCHARGING_ENERGY],
+        native_unit_of_measurement="kWh",
+        device_class=SensorDeviceClass.ENERGY,
+        state_class=SensorStateClass.TOTAL,
+    ),
+    HinenSensorEntityDescription(
+        key=CUMULATIVE_ENERGY_PURCHASED,
+        translation_key=CUMULATIVE_ENERGY_PURCHASED,
+        available_fn=lambda device_detail: device_detail[CUMULATIVE_ENERGY_PURCHASED]
+        is not None,
+        value_fn=lambda device_detail: device_detail[CUMULATIVE_ENERGY_PURCHASED],
         native_unit_of_measurement="kWh",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,

@@ -49,6 +49,7 @@ CUMULATIVE_PRODUCTION_ACTIVE = "cumulative_production_active"
 CUMULATIVE_GRID_FEED_IN = "cumulative_grid_feed_in"
 TOTAL_CHARGING_ENERGY = "total_charging_energy"
 TOTAL_DISCHARGING_ENERGY = "total_discharging_energy"
+CUMULATIVE_ENERGY_PURCHASED = "cumulative_energy_purchased"
 # Power sensors
 GENERATION_POWER = "generation_power"
 TOTAL_LOAD_POWER = "total_load_power"
@@ -68,6 +69,7 @@ PROPERTIES = {
     CUMULATIVE_GRID_FEED_IN: "CumulativeGridFeedIn",
     TOTAL_CHARGING_ENERGY: "TotalChargingEnergy",
     TOTAL_DISCHARGING_ENERGY: "TotalDischargingEnergy",
+    CUMULATIVE_ENERGY_PURCHASED: "CumulativeEnergyPurchased",
     # Power sensors
     GENERATION_POWER: "GenerationPower",
     TOTAL_LOAD_POWER: "TotalLoadPower",
