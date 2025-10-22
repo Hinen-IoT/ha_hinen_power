@@ -17,7 +17,7 @@
 cd config
 git clone https://github.com/Hinen-IoT/ha_hinen_power.git
 cd ha_hinen_power
-./install.sh /config
+./install.sh ../
 ```
 
 推荐使用此方法安装海能集成。当有特定版本且您想要更新至特定版本时，只需要切换至相应的 Tag 。
@@ -27,7 +27,7 @@ cd ha_hinen_power
 cd config/ha_hinen_power
 git fetch
 git checkout v1.0.0
-./install.sh /config
+./install.sh ../
 ```
 
 注意：以上“/config”需要替换成本地HASS配置目录路径

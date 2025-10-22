@@ -13,7 +13,7 @@ from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import AUTH, CD_PERIOD_TIMES2, COORDINATOR, DOMAIN
+from .const import AUTH, CD_PERIOD_TIMES2, COORDINATOR, DOMAIN, PROPERTIES
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
 
@@ -131,7 +131,7 @@ class HinenCDPeriodEnableSwitch(HinenDeviceEntity, SwitchEntity):
 
         # Send update to device
         await self.hinen_open.set_property(
-            cd_period_times, self._device_id, CD_PERIOD_TIMES2
+            cd_period_times, self._device_id, PROPERTIES[CD_PERIOD_TIMES2]
         )
 
         # Update coordinator data

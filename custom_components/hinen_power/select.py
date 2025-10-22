@@ -16,6 +16,7 @@ from .const import (
     AUTH,
     COORDINATOR,
     DOMAIN,
+    PROPERTIES,
     WORK_MODE_NONE,
     WORK_MODE_OPTIONS,
     WORK_MODE_SETTING,
@@ -90,7 +91,7 @@ class HinenWorkModeSelect(HinenDeviceEntity, SelectEntity):
         _LOGGER.debug("mode_value: %s", mode_value)
         if mode_value is not None:
             await self.hinen_open.set_property(
-                mode_value, self._device_id, WORK_MODE_SETTING
+                mode_value, self._device_id, PROPERTIES[WORK_MODE_SETTING]
             )
             self.coordinator.data[self._device_id][WORK_MODE_SETTING] = mode_value
             self.async_write_ha_state()

@@ -17,7 +17,7 @@ Hinen Power integration is an official Home Assistant integration component prov
 cd config
 git clone https://github.com/Hinen-IoT/ha_hinen_power.git
 cd ha_hinen_power
-./install.sh /config
+./install.sh ../
 ```
 
 It is recommended to use this method to install the Hinen integration. When you want to update to a specific version, you only need to switch to the corresponding Tag.
@@ -28,10 +28,10 @@ For example, to update the Hinen integration version to v1.0.0
 cd config/ha_hinen_power
 git fetch
 git checkout v1.0.0
-./install.sh /config
+./install.sh ../
 ```
 
-Note: The following "/config" needs to be replaced with the local HASS configuration directory path.
+Note: The following "config" needs to be replaced with the local HASS configuration directory path.
 
 ### Method 2: [HACS](https://hacs.xyz/)
 

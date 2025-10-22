@@ -20,6 +20,7 @@ from .const import (
     DOMAIN,
     GRID_FIRST_STOP_SOC,
     LOAD_FIRST_STOP_SOC,
+    PROPERTIES
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
@@ -185,7 +186,7 @@ class HinenNumber(HinenDeviceEntity, NumberEntity):
         _LOGGER.debug("set native_value: %s", value)
         if value is not None:
             await self.hinen_open.set_property(
-                int(value), self._device_id, self.entity_description.key
+                int(value), self._device_id, PROPERTIES[self.entity_description.key]
             )
             self.coordinator.data[self._device_id][self.entity_description.key] = value
             self.async_write_ha_state()
@@ -255,7 +256,7 @@ class HinenCDPeriodTimesNumber(HinenDeviceEntity, NumberEntity):
 
         # Send update to device
         await self.hinen_open.set_property(
-            cd_period_times, self._device_id, CD_PERIOD_TIMES2
+            cd_period_times, self._device_id, PROPERTIES[CD_PERIOD_TIMES2]
         )
 
         # Update coordinator data
