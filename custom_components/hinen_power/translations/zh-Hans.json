@@ -180,6 +180,60 @@
       },
       "cd_period_times_6_stop_soc": {
         "name": "时段6截止SOC"
+      },
+      "power_protection_period_1_soc": {
+        "name": "保电模式时段1SOC"
+      },
+      "power_protection_period_1_start_time": {
+        "name": "保电模式时段1起始时间"
+      },
+      "power_protection_period_1_power": {
+        "name": "保电模式时段1功率"
+      },
+      "power_protection_period_2_soc": {
+        "name": "保电模式时段2SOC"
+      },
+      "power_protection_period_2_start_time": {
+        "name": "保电模式时段2起始时间"
+      },
+      "power_protection_period_2_power": {
+        "name": "保电模式时段2功率"
+      },
+      "power_protection_period_3_soc": {
+        "name": "保电模式时段3SOC"
+      },
+      "power_protection_period_3_start_time": {
+        "name": "保电模式时段3起始时间"
+      },
+      "power_protection_period_3_power": {
+        "name": "保电模式时段3功率"
+      },
+      "power_protection_period_4_soc": {
+        "name": "保电模式时段4SOC"
+      },
+      "power_protection_period_4_start_time": {
+        "name": "保电模式时段4起始时间"
+      },
+      "power_protection_period_4_power": {
+        "name": "保电模式时段4功率"
+      },
+      "power_protection_period_5_soc": {
+        "name": "保电模式时段5SOC"
+      },
+      "power_protection_period_5_start_time": {
+        "name": "保电模式时段5起始时间"
+      },
+      "power_protection_period_5_power": {
+        "name": "保电模式时段5功率"
+      },
+      "power_protection_period_6_soc": {
+        "name": "保电模式时段6SOC"
+      },
+      "power_protection_period_6_start_time": {
+        "name": "保电模式时段6起始时间"
+      },
+      "power_protection_period_6_power": {
+        "name": "保电模式时段6功率"
       }
     },
     "switch": {
@@ -200,6 +254,24 @@
       },
       "cd_period_times_6_enable": {
         "name": "时段6使能"
+      },
+      "power_protection_period_1_ac_enable": {
+        "name": "保电模式时段1AC使能"
+      },
+      "power_protection_period_2_ac_enable": {
+        "name": "保电模式时段2AC使能"
+      },
+      "power_protection_period_3_ac_enable": {
+        "name": "保电模式时段3AC使能"
+      },
+      "power_protection_period_4_ac_enable": {
+        "name": "保电模式时段4AC使能"
+      },
+      "power_protection_period_5_ac_enable": {
+        "name": "保电模式时段5AC使能"
+      },
+      "power_protection_period_6_ac_enable": {
+        "name": "保电模式时段6AC使能"
       }
     }
   },

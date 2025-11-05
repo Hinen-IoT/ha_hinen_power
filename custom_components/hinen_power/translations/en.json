@@ -126,6 +126,60 @@
             },
             "load_first_stop_soc": {
                 "name": "Load first stop SOC"
+            },
+            "power_protection_period_1_soc": {
+                "name": "Power Protection Period 1 SOC"
+            },
+            "power_protection_period_1_start_time": {
+                "name": "Power Protection Period 1 Start Time"
+            },
+            "power_protection_period_1_power": {
+                "name": "Power Protection Period 1 Power"
+            },
+            "power_protection_period_2_soc": {
+                "name": "Power Protection Period 2 SOC"
+            },
+            "power_protection_period_2_start_time": {
+                "name": "Power Protection Period 2 Start Time"
+            },
+            "power_protection_period_2_power": {
+                "name": "Power Protection Period 2 Power"
+            },
+            "power_protection_period_3_soc": {
+                "name": "Power Protection Period 3 SOC"
+            },
+            "power_protection_period_3_start_time": {
+                "name": "Power Protection Period 3 Start Time"
+            },
+            "power_protection_period_3_power": {
+                "name": "Power Protection Period 3 Power"
+            },
+            "power_protection_period_4_soc": {
+                "name": "Power Protection Period 4 SOC"
+            },
+            "power_protection_period_4_start_time": {
+                "name": "Power Protection Period 4 Start Time"
+            },
+            "power_protection_period_4_power": {
+                "name": "Power Protection Period 4 Power"
+            },
+            "power_protection_period_5_soc": {
+                "name": "Power Protection Period 5 SOC"
+            },
+            "power_protection_period_5_start_time": {
+                "name": "Power Protection Period 5 Start Time"
+            },
+            "power_protection_period_5_power": {
+                "name": "Power Protection Period 5 Power"
+            },
+            "power_protection_period_6_soc": {
+                "name": "Power Protection Period 6 SOC"
+            },
+            "power_protection_period_6_start_time": {
+                "name": "Power Protection Period 6 Start Time"
+            },
+            "power_protection_period_6_power": {
+                "name": "Power Protection Period 6 Power"
             }
         },
         "select": {
@@ -200,6 +254,24 @@
             },
             "cd_period_times_6_enable": {
                 "name": "CD Period 6 Enable"
+            },
+            "power_protection_period_1_ac_enable": {
+                "name": "Power Protection Period 1 AC Enable"
+            },
+            "power_protection_period_2_ac_enable": {
+                "name": "Power Protection Period 2 AC Enable"
+            },
+            "power_protection_period_3_ac_enable": {
+                "name": "Power Protection Period 3 AC Enable"
+            },
+            "power_protection_period_4_ac_enable": {
+                "name": "Power Protection Period 4 AC Enable"
+            },
+            "power_protection_period_5_ac_enable": {
+                "name": "Power Protection Period 5 AC Enable"
+            },
+            "power_protection_period_6_ac_enable": {
+                "name": "Power Protection Period 6 AC Enable"
             }
         }
     },

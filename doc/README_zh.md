@@ -72,14 +72,26 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
     - 时段1充放电功率百分比
     - 时段1结束时间
     - 时段1截止SOC
+  - 保电模式时段配置（6个：时段1，时段2，时段3，时段4，时段5，时段6，若无设置则默认值都是0）
+    - 时段1SOC
+    - 时段1起始时间
+    - 时段1功率
   
-- 开关（配合工作模式：时间段控制使用）
-  - 时段1使能
-  - 时段2使能
-  - 时段3使能
-  - 时段4使能
-  - 时段5使能
-  - 时段6使能
+- 开关
+  - 时间段控制（时段1-6）
+    - 时段1使能
+    - 时段2使能
+    - 时段3使能
+    - 时段4使能
+    - 时段5使能
+    - 时段6使能
+  - 保电模式交流使能（时段1-6）
+    - 时段1交流使能
+    - 时段2交流使能
+    - 时段3交流使能
+    - 时段4交流使能
+    - 时段5交流使能
+    - 时段6交流使能
 
 # 前提条件
 
@@ -187,6 +199,30 @@ cards:
           name: 开始时间
         - entity: number.{{ device_name }}_cd_period_{{ period }}_end
           name: 结束时间
+        {% endfor %}
+      show_header_toggle: false
+      state_color: true
+  
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: select.{{ device_name }}_work_mode
+        state: power_keeping
+    card:
+      type: entities
+      title: 🔋保电模式配置
+      entities:
+        {% for period in range(1, 7) %}
+        - type: section
+          label: 时段{{ period }}
+        - entity: switch.{{ device_name }}_power_protection_period_{{ period }}_ac_enable
+          name: 启用
+        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_power
+          name: 功率
+        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_start_time
+          name: 开始时间
+        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_soc
+          name: SOC
         {% endfor %}
       show_header_toggle: false
       state_color: true

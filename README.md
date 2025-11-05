@@ -73,14 +73,26 @@ The Hinen Power integration allows you to connect Hinen devices to Home Assistan
     - Period 1 charge/discharge power percentage
     - Period 1 end time
     - Period 1 cutoff SOC
+  - Power protection time period configuration (6: Period 1, Period 2, Period 3, Period 4, Period 5, Period 6, if not set, the default value is 0)
+    - Period 1 SOC
+    - Period 1 start time
+    - Period 1 power
   
-- Switch (used in conjunction with working mode: time period control)
-  - Period 1 enable
-  - Period 2 enable
-  - Period 3 enable
-  - Period 4 enable
-  - Period 5 enable
-  - Period 6 enable
+- Switch
+  - Time period control (Period 1-6)
+    - Period 1 enable
+    - Period 2 enable
+    - Period 3 enable
+    - Period 4 enable
+    - Period 5 enable
+    - Period 6 enable
+  - Power protection AC enable (Period 1-6)
+    - Period 1 AC enable
+    - Period 2 AC enable
+    - Period 3 AC enable
+    - Period 4 AC enable
+    - Period 5 AC enable
+    - Period 6 AC enable
 
 # Prerequisites
 
@@ -192,6 +204,30 @@ cards:
           name: Start time
         - entity: number.{{ device_name }}_cd_period_{{ period }}_end
           name: End time
+        {% endfor %}
+      show_header_toggle: false
+      state_color: true
+  
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: select.{{ device_name }}_work_mode
+        state: power_keeping
+    card:
+      type: entities
+      title: 🔋Power Protection Mode Configuration
+      entities:
+        {% for period in range(1, 7) %}
+        - type: section
+          label: Period {{ period }}
+        - entity: switch.{{ device_name }}_power_protection_period_{{ period }}_ac_enable
+          name: Enable
+        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_power
+          name: Power
+        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_start_time
+          name: Start Time
+        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_soc
+          name: SOC
         {% endfor %}
       show_header_toggle: false
       state_color: true
