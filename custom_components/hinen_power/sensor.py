@@ -191,7 +191,6 @@ async def async_setup_entry(
     for device_id in coordinator.data:
         device_data = coordinator.data[device_id]
         for sensor_type in SENSOR_TYPES:
-            # 只有在数据不为None的情况下才注册实体
             if device_data.get(sensor_type.key) is not None:
                 entities.append(HinenSensor(coordinator, hinen_open, sensor_type, device_id))
 
