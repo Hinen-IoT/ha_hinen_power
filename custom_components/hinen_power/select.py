@@ -53,11 +53,12 @@ async def async_setup_entry(
     ]
     hinen_open: HinenOpen = hass.data[DOMAIN][entry.entry_id][AUTH].hinen_open
 
-    entities: list = [
-        HinenWorkModeSelect(coordinator, hinen_open, sensor_type, device_id)
-        for device_id in coordinator.data
-        for sensor_type in SELECT_TYPES
-    ]
+    entities: list = []
+    for device_id in coordinator.data:
+        device_data = coordinator.data[device_id]
+        for select_type in SELECT_TYPES:
+            if device_data.get(select_type.key) is not None:
+                entities.append(HinenWorkModeSelect(coordinator, hinen_open, select_type, device_id))
 
     async_add_entities(entities)
 

@@ -198,27 +198,20 @@ async def async_setup_entry(
     ]
     hinen_open: HinenOpen = hass.data[DOMAIN][entry.entry_id][AUTH].hinen_open
 
-    entities: list = [
-        HinenNumber(coordinator, hinen_open, number_type, device_id)
-        for device_id in coordinator.data
-        for number_type in NUMBER_TYPES
-    ]
+    entities: list = []
+    for device_id in coordinator.data:
+        device_data = coordinator.data[device_id]
+        for number_type in NUMBER_TYPES:
+            if device_data.get(number_type.key) is not None:
+                entities.append(HinenNumber(coordinator, hinen_open, number_type, device_id))
 
-    entities.extend(
-        [
-            HinenCDPeriodTimesNumber(coordinator, hinen_open, number_type, device_id)
-            for device_id in coordinator.data
-            for number_type in CD_PERIOD_TIMES_TYPES
-        ]
-    )
+        for number_type in CD_PERIOD_TIMES_TYPES:
+            if device_data.get(CD_PERIOD_TIMES2) is not None:
+                entities.append(HinenCDPeriodTimesNumber(coordinator, hinen_open, number_type, device_id))
 
-    entities.extend(
-        [
-            HinenPowerProtectionNumber(coordinator, hinen_open, number_type, device_id)
-            for device_id in coordinator.data
-            for number_type in POWER_PROTECTION_TYPES
-        ]
-    )
+        for number_type in POWER_PROTECTION_TYPES:
+            if device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD) is not None:
+                entities.append(HinenPowerProtectionNumber(coordinator, hinen_open, number_type, device_id))
 
     async_add_entities(entities)
 
