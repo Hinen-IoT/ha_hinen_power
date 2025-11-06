@@ -187,11 +187,13 @@ async def async_setup_entry(
     ]
     hinen_open: HinenOpen = hass.data[DOMAIN][entry.entry_id][AUTH].hinen_open
 
-    entities: list = [
-        HinenSensor(coordinator, hinen_open, sensor_type, device_id)
-        for device_id in coordinator.data
-        for sensor_type in SENSOR_TYPES
-    ]
+    entities: list = []
+    for device_id in coordinator.data:
+        device_data = coordinator.data[device_id]
+        for sensor_type in SENSOR_TYPES:
+            # 只有在数据不为None的情况下才注册实体
+            if device_data.get(sensor_type.key) is not None:
+                entities.append(HinenSensor(coordinator, hinen_open, sensor_type, device_id))
 
     async_add_entities(entities)
 
@@ -204,9 +206,7 @@ class HinenSensor(HinenDeviceEntity, SensorEntity):
     @property
     def available(self) -> bool:
         """Return if the entity is available."""
-        return super().available and self.entity_description.available_fn(
-            self.coordinator.data[self._device_id]
-        )
+        return super().available
 
     @property
     def native_value(self) -> StateType:
