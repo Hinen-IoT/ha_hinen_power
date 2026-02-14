@@ -6,10 +6,12 @@ import logging
 from dataclasses import dataclass
 
 from hinen_open_api import HinenOpen
+from hinen_open_api.exceptions import HinenBackendError
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .const import (
@@ -57,6 +59,7 @@ async def async_setup_entry(
         HinenWorkModeSelect(coordinator, hinen_open, sensor_type, device_id)
         for device_id in coordinator.data
         for sensor_type in SELECT_TYPES
+        if coordinator.data[device_id].get(WORK_MODE_SETTING) is not None
     ]
 
     async_add_entities(entities)
@@ -70,14 +73,22 @@ class HinenWorkModeSelect(HinenDeviceEntity, SelectEntity):
     @property
     def available(self) -> bool:
         """Return if the entity is available."""
-        return True
+        if not self.coordinator.data:
+            return False
+        return (
+            self._device_id in self.coordinator.data
+            and self.coordinator.data[self._device_id].get(WORK_MODE_SETTING)
+            is not None
+        )
 
     @property
     def current_option(self) -> str | None:
         """Return the current work mode."""
         if not self.coordinator.data:
             return None
-        mode = self.coordinator.data[self._device_id][WORK_MODE_SETTING]
+        mode = self.coordinator.data[self._device_id].get(WORK_MODE_SETTING)
+        if mode is None:
+            return None
         _LOGGER.debug("current mode_value: %s", mode)
         return WORK_MODE_OPTIONS.get(mode, WORK_MODE_OPTIONS[WORK_MODE_NONE])
 
@@ -90,8 +101,13 @@ class HinenWorkModeSelect(HinenDeviceEntity, SelectEntity):
                 break
         _LOGGER.debug("mode_value: %s", mode_value)
         if mode_value is not None:
-            await self.hinen_open.set_property(
-                mode_value, self._device_id, PROPERTIES[WORK_MODE_SETTING]
-            )
+            try:
+                await self.hinen_open.set_property(
+                    mode_value, self._device_id, PROPERTIES[WORK_MODE_SETTING]
+                )
+            except HinenBackendError as err:
+                raise HomeAssistantError(
+                    f"Failed to set work mode: {err}"
+                ) from err
             self.coordinator.data[self._device_id][WORK_MODE_SETTING] = mode_value
             self.async_write_ha_state()
