@@ -20,7 +20,8 @@ ATTR_DEVICE_NAME = "device_name"
 
 REGION_CODE = "regionCode"
 CLIENT_SECRET = "clientSecret"
-# Work mode constants
+
+# Work mode constants (values should match hinen_open_api.enum.WorkMode)
 WORK_MODE_NONE = 0
 WORK_MODE_SELF_CONSUMPTION = 10
 WORK_MODE_BATTERY_PRIORITY = 11
@@ -28,6 +29,7 @@ WORK_MODE_GRID_PRIORITY = 12
 WORK_MODE_TIME_PERIOD = 13
 WORK_MODE_POWER_KEEPING = 14
 
+# HA-specific translation keys for work modes
 WORK_MODE_OPTIONS = {
     WORK_MODE_NONE: "none",
     WORK_MODE_SELF_CONSUMPTION: "self_consumption",
@@ -45,6 +47,20 @@ CHARGE_POWER_SET = "charge_power_set"
 DISCHARGE_POWER_SET = "discharge_power_set"
 CD_PERIOD_TIMES2 = "cd_period_times2"
 POWER_PROTECTION_MODE_TIME_PERIOD = "power_protection_mode_time_period"
+
+# CD Period Times 2 nested property keys (API field names)
+PERIOD_ENABLE = "periodEnable"
+PERIOD_TIME_START = "periodTimeStart"
+PERIOD_TIME_RATE = "periodTimeRate"
+PERIOD_TIME_END = "periodTimeEnd"
+PERIOD_TIME_STOP_SOC = "periodTimeStopSoc"
+
+# Power Protection Mode Time Period nested property keys (API field names)
+PERIOD_SOC = "PeriodSOC"
+PERIOD_AC_ENABLE = "PeriodACEnable"
+PERIOD_START_TIME = "PeriodStartTime"
+PERIOD_POWER = "PeriodPower"
+
 CUMULATIVE_CONSUMPTION = "cumulative_consumption"
 CUMULATIVE_PRODUCTION_ACTIVE = "cumulative_production_active"
 CUMULATIVE_GRID_FEED_IN = "cumulative_grid_feed_in"

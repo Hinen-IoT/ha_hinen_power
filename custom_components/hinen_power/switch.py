@@ -13,9 +13,26 @@ from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import AUTH, CD_PERIOD_TIMES2, COORDINATOR, DOMAIN, PROPERTIES, POWER_PROTECTION_MODE_TIME_PERIOD
+from .const import (
+    AUTH,
+    CD_PERIOD_TIMES2,
+    COORDINATOR,
+    DOMAIN,
+    PERIOD_AC_ENABLE,
+    PERIOD_ENABLE,
+    PERIOD_POWER,
+    PERIOD_SOC,
+    PERIOD_START_TIME,
+    PERIOD_TIME_END,
+    PERIOD_TIME_RATE,
+    PERIOD_TIME_START,
+    PERIOD_TIME_STOP_SOC,
+    POWER_PROTECTION_MODE_TIME_PERIOD,
+    PROPERTIES,
+)
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
+from .utils import extract_property_value
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -63,7 +80,7 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    """Set up the Hinen CD Period Enable switches and Power Protection AC Enable switches."""
+    """Set up the Hinen CD Period Enable and Power Protection AC switches."""
     coordinator: HinenDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
         COORDINATOR
     ]
@@ -74,11 +91,19 @@ async def async_setup_entry(
         device_data = coordinator.data[device_id]
         for switch_type in CD_PERIOD_ENABLE_TYPES:
             if device_data.get(CD_PERIOD_TIMES2) is not None:
-                entities.append(HinenCDPeriodEnableSwitch(coordinator, hinen_open, switch_type, device_id))
+                entities.append(
+                    HinenCDPeriodEnableSwitch(
+                        coordinator, hinen_open, switch_type, device_id
+                    )
+                )
 
         for switch_type in POWER_PROTECTION_AC_ENABLE_TYPES:
             if device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD) is not None:
-                entities.append(HinenPowerProtectionACEnableSwitch(coordinator, hinen_open, switch_type, device_id))
+                entities.append(
+                    HinenPowerProtectionACEnableSwitch(
+                        coordinator, hinen_open, switch_type, device_id
+                    )
+                )
 
     async_add_entities(entities)
 
@@ -100,7 +125,10 @@ class HinenCDPeriodEnableSwitch(HinenDeviceEntity, SwitchEntity):
             return False
 
         # Get CDPeriodTimes2 data from coordinator
-        cd_period_times = self.coordinator.data[self._device_id][CD_PERIOD_TIMES2]
+        device_data = self.coordinator.data.get(self._device_id, {})
+        cd_period_property = device_data.get(CD_PERIOD_TIMES2)
+        cd_period_times = extract_property_value(cd_period_property)
+
         if (
             cd_period_times is None
             or len(cd_period_times) <= self.entity_description.period_index
@@ -108,7 +136,7 @@ class HinenCDPeriodEnableSwitch(HinenDeviceEntity, SwitchEntity):
             return False
 
         period_data = cd_period_times[self.entity_description.period_index]
-        return bool(period_data.get("periodEnable", 0))
+        return bool(period_data.get(PERIOD_ENABLE, 0))
 
     async def async_turn_on(self, **kwargs: Any) -> None: # pylint: disable=unused-argument
         """Turn the switch on."""
@@ -120,14 +148,12 @@ class HinenCDPeriodEnableSwitch(HinenDeviceEntity, SwitchEntity):
 
     async def _set_enable_value(self, enabled: bool) -> None:
         """Set the enable value."""
-        _LOGGER.debug(
-            "Setting CD Period Enable to: %s for period: %s",
-            enabled,
-            self.entity_description.period_index,
-        )
-
+        _LOGGER.debug("set CD Period Enable: %s", enabled)
         # Get current CDPeriodTimes2 data
-        cd_period_times = self.coordinator.data[self._device_id][CD_PERIOD_TIMES2]
+        device_data = self.coordinator.data.get(self._device_id, {})
+        cd_period_property = device_data.get(CD_PERIOD_TIMES2)
+        cd_period_times = extract_property_value(cd_period_property)
+
         if cd_period_times is None:
             # Initialize with default values if not exists
             cd_period_times = []
@@ -138,11 +164,11 @@ class HinenCDPeriodEnableSwitch(HinenDeviceEntity, SwitchEntity):
             cd_period_times.extend(
                 [
                     {
-                        "periodEnable": 0,
-                        "periodTimeStart": 0,
-                        "periodTimeRate": 0,
-                        "periodTimeEnd": 0,
-                        "periodTimeStopSoc": 0,
+                        PERIOD_ENABLE: 0,
+                        PERIOD_TIME_START: 0,
+                        PERIOD_TIME_RATE: 0,
+                        PERIOD_TIME_END: 0,
+                        PERIOD_TIME_STOP_SOC: 0,
                     }
                     for _ in range(
                         self.entity_description.period_index - len(cd_period_times) + 1
@@ -151,15 +177,18 @@ class HinenCDPeriodEnableSwitch(HinenDeviceEntity, SwitchEntity):
             )
 
         period_data = cd_period_times[self.entity_description.period_index]
-        period_data["periodEnable"] = 1 if enabled else 0
+        period_data[PERIOD_ENABLE] = 1 if enabled else 0
 
         # Send update to device
         await self.hinen_open.set_property(
             cd_period_times, self._device_id, PROPERTIES[CD_PERIOD_TIMES2]
         )
 
-        # Update coordinator data
-        self.coordinator.data[self._device_id][CD_PERIOD_TIMES2] = cd_period_times
+        # Update coordinator data with new structure
+        if isinstance(cd_period_property, dict):
+            cd_period_property["value"] = cd_period_times
+        else:
+            device_data[CD_PERIOD_TIMES2] = {"value": cd_period_times, "specs": None}
 
         self.async_write_ha_state()
 
@@ -181,7 +210,10 @@ class HinenPowerProtectionACEnableSwitch(HinenDeviceEntity, SwitchEntity):
             return False
 
         # Get PowerProtectionModeTimePeriod data from coordinator
-        power_protection_data = self.coordinator.data[self._device_id][POWER_PROTECTION_MODE_TIME_PERIOD]
+        device_data = self.coordinator.data.get(self._device_id, {})
+        power_protection_property = device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD)
+        power_protection_data = extract_property_value(power_protection_property)
+
         if (
             power_protection_data is None
             or len(power_protection_data) <= self.entity_description.period_index
@@ -189,7 +221,7 @@ class HinenPowerProtectionACEnableSwitch(HinenDeviceEntity, SwitchEntity):
             return False
 
         period_data = power_protection_data[self.entity_description.period_index]
-        return bool(period_data.get("PeriodACEnable", 0))
+        return bool(period_data.get(PERIOD_AC_ENABLE, 0))
 
     async def async_turn_on(self, **kwargs: Any) -> None: # pylint: disable=unused-argument
         """Turn the switch on."""
@@ -201,14 +233,12 @@ class HinenPowerProtectionACEnableSwitch(HinenDeviceEntity, SwitchEntity):
 
     async def _set_enable_value(self, enabled: bool) -> None:
         """Set the enable value."""
-        _LOGGER.debug(
-            "Setting Power Protection AC Enable to: %s for period: %s",
-            enabled,
-            self.entity_description.period_index,
-        )
-
+        _LOGGER.debug("set Power Protection AC Enable: %s", enabled)
         # Get current PowerProtectionModeTimePeriod data
-        power_protection_data = self.coordinator.data[self._device_id][POWER_PROTECTION_MODE_TIME_PERIOD]
+        device_data = self.coordinator.data.get(self._device_id, {})
+        power_protection_property = device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD)
+        power_protection_data = extract_property_value(power_protection_property)
+
         if power_protection_data is None:
             # Initialize with default values if not exists
             power_protection_data = []
@@ -219,26 +249,34 @@ class HinenPowerProtectionACEnableSwitch(HinenDeviceEntity, SwitchEntity):
             power_protection_data.extend(
                 [
                     {
-                        "PeriodSOC": 0,
-                        "PeriodACEnable": 0,
-                        "PeriodStartTime": 0,
-                        "PeriodPower": 0
+                        PERIOD_SOC: 0,
+                        PERIOD_AC_ENABLE: 0,
+                        PERIOD_START_TIME: 0,
+                        PERIOD_POWER: 0
                     }
                     for _ in range(
-                        self.entity_description.period_index - len(power_protection_data) + 1
+                        self.entity_description.period_index
+                        - len(power_protection_data)
+                        + 1
                     )
                 ]
             )
 
         period_data = power_protection_data[self.entity_description.period_index]
-        period_data["PeriodACEnable"] = 1 if enabled else 0
+        period_data[PERIOD_AC_ENABLE] = 1 if enabled else 0
 
         # Send update to device
         await self.hinen_open.set_property(
-            power_protection_data, self._device_id, PROPERTIES[POWER_PROTECTION_MODE_TIME_PERIOD]
+            power_protection_data, self._device_id,
+            PROPERTIES[POWER_PROTECTION_MODE_TIME_PERIOD]
         )
 
-        # Update coordinator data
-        self.coordinator.data[self._device_id][POWER_PROTECTION_MODE_TIME_PERIOD] = power_protection_data
+        # Update coordinator data with new structure
+        if isinstance(power_protection_property, dict):
+            power_protection_property["value"] = power_protection_data
+        else:
+            device_data[POWER_PROTECTION_MODE_TIME_PERIOD] = {
+                "value": power_protection_data, "specs": None
+            }
 
         self.async_write_ha_state()

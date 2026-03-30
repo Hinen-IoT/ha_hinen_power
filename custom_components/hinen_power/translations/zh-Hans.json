@@ -1,7 +1,7 @@
 {
   "config": {
     "abort": {
-      "access_not_configured": "请阅读我们从Hinen收到的以下消息:\\n\\n{message}",
+      "access_not_configured": "请阅读下方来自Hinen服务的消息:\\n\\n{message}",
       "already_configured": "账户已配置",
       "no_device": "请连接Hinen设备以使用集成。",
       "oauth_error": "收到无效的令牌数据。",
@@ -47,10 +47,22 @@
   "entity": {
     "sensor": {
       "alert_status": {
-        "name": "告警状态"
+        "name": "告警状态",
+        "state": {
+            "normal": "正常",
+            "alarm": "告警",
+            "error": "故障",
+            "unknown": "未知状态"
+        }
       },
       "status": {
-        "name": "设备状态"
+        "name": "设备状态",
+        "state": {
+            "off": "离线",
+            "normal": "在线",
+            "sleep": "睡眠",
+            "unknown": "未知状态"
+        }
       },
       "cumulative_consumption":{
         "name": "累计用电量"

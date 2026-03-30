@@ -1,7 +1,7 @@
 {
     "config": {
         "abort": {
-            "access_not_configured": "Please read the below message we got from Google:\n\n{message}",
+            "access_not_configured": "Please read the message below from the Hinen service:\n\n{message}",
             "already_configured": "Account is already configured",
             "no_device": "Please create a Hinen Device to be able to use the integration",
             "oauth_error": "Received invalid token data.",
@@ -197,7 +197,13 @@
         },
         "sensor": {
             "alert_status": {
-                "name": "Alert Status"
+                "name": "Alert Status",
+                "state": {
+                    "normal": "NORMAL",
+                    "alarm": "ALARM",
+                    "error": "ERROR",
+                    "unknown": "UNKNOWN"
+                }
             },
             "cumulative_consumption": {
                 "name": "Cumulative Consumption"
@@ -209,7 +215,13 @@
                 "name": "Cumulative Production Active"
             },
             "status": {
-                "name": "Status"
+                "name": "Status",
+                "state": {
+                    "off": "OFF",
+                    "normal": "NORMAL",
+                    "sleep": "SLEEP",
+                    "unknown": "UNKNOWN"
+                }
             },
             "total_charging_energy": {
                 "name": "Total Charging Energy"

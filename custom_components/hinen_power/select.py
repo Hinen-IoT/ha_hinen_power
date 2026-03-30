@@ -23,6 +23,7 @@ from .const import (
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
+from .utils import extract_property_value
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -58,7 +59,9 @@ async def async_setup_entry(
         device_data = coordinator.data[device_id]
         for select_type in SELECT_TYPES:
             if device_data.get(select_type.key) is not None:
-                entities.append(HinenWorkModeSelect(coordinator, hinen_open, select_type, device_id))
+                entities.append(
+                    HinenWorkModeSelect(coordinator, hinen_open, select_type, device_id)
+                )
 
     async_add_entities(entities)
 
@@ -78,7 +81,13 @@ class HinenWorkModeSelect(HinenDeviceEntity, SelectEntity):
         """Return the current work mode."""
         if not self.coordinator.data:
             return None
-        mode = self.coordinator.data[self._device_id][WORK_MODE_SETTING]
+
+        device_data = self.coordinator.data.get(self._device_id, {})
+        work_mode_data = device_data.get(WORK_MODE_SETTING)
+        if work_mode_data is None:
+            return None
+
+        mode = extract_property_value(work_mode_data)
         _LOGGER.debug("current mode_value: %s", mode)
         return WORK_MODE_OPTIONS.get(mode, WORK_MODE_OPTIONS[WORK_MODE_NONE])
 
@@ -94,5 +103,13 @@ class HinenWorkModeSelect(HinenDeviceEntity, SelectEntity):
             await self.hinen_open.set_property(
                 mode_value, self._device_id, PROPERTIES[WORK_MODE_SETTING]
             )
-            self.coordinator.data[self._device_id][WORK_MODE_SETTING] = mode_value
+
+            # Update coordinator data with new structure
+            device_data = self.coordinator.data.get(self._device_id, {})
+            work_mode_data = device_data.get(WORK_MODE_SETTING)
+            if isinstance(work_mode_data, dict):
+                work_mode_data["value"] = mode_value
+            else:
+                device_data[WORK_MODE_SETTING] = {"value": mode_value, "specs": None}
+
             self.async_write_ha_state()

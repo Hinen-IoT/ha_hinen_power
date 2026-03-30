@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from hinen_open_api import HinenOpen
+from hinen_open_api.enum import DeviceAlertStatus, DeviceStatus
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -14,6 +15,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import PERCENTAGE, UnitOfEnergy, UnitOfPower
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import StateType
@@ -38,7 +40,18 @@ from .const import (
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
-from .enum import DeviceAlertStatus, DeviceStatus
+from .utils import extract_property_value
+
+
+def _is_property_available(device_detail: dict, key: str) -> bool:
+    """Check if property is available."""
+    if key not in device_detail:
+        return False
+
+    property_data = device_detail[key]
+    if isinstance(property_data, dict):
+        return property_data.get("value") is not None
+    return property_data is not None
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -53,53 +66,53 @@ SENSOR_TYPES = [
     HinenSensorEntityDescription(
         key=ATTR_STATUS,
         translation_key=ATTR_STATUS,
-        available_fn=lambda device_detail: device_detail[ATTR_STATUS] is not None,
-        value_fn=lambda device_detail: DeviceStatus.get_display_name(
+        available_fn=lambda d: _is_property_available(d, ATTR_STATUS),
+        value_fn=lambda device_detail: DeviceStatus.from_value(
             device_detail[ATTR_STATUS]
-        ),
+        ).name.lower(),
     ),
     HinenSensorEntityDescription(
         key=ATTR_ALERT_STATUS,
         translation_key=ATTR_ALERT_STATUS,
-        available_fn=lambda device_detail: device_detail[ATTR_ALERT_STATUS] is not None,
-        value_fn=lambda device_detail: DeviceAlertStatus.get_display_name(
+        available_fn=lambda d: _is_property_available(d, ATTR_ALERT_STATUS),
+        value_fn=lambda device_detail: DeviceAlertStatus.from_value(
             device_detail[ATTR_ALERT_STATUS]
-        ),
+        ).name.lower(),
     ),
     # Power sensors
     HinenSensorEntityDescription(
         key=GENERATION_POWER,
         translation_key=GENERATION_POWER,
-        available_fn=lambda device_detail: device_detail[GENERATION_POWER] is not None,
-        value_fn=lambda device_detail: device_detail[GENERATION_POWER],
-        native_unit_of_measurement="W",
+        available_fn=lambda d: _is_property_available(d, GENERATION_POWER),
+        value_fn=lambda d: extract_property_value(d.get(GENERATION_POWER)),
+        native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     HinenSensorEntityDescription(
         key=TOTAL_LOAD_POWER,
         translation_key=TOTAL_LOAD_POWER,
-        available_fn=lambda device_detail: device_detail[TOTAL_LOAD_POWER] is not None,
-        value_fn=lambda device_detail: device_detail[TOTAL_LOAD_POWER],
-        native_unit_of_measurement="W",
+        available_fn=lambda d: _is_property_available(d, TOTAL_LOAD_POWER),
+        value_fn=lambda d: extract_property_value(d.get(TOTAL_LOAD_POWER)),
+        native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     HinenSensorEntityDescription(
         key=BATTERY_POWER,
         translation_key=BATTERY_POWER,
-        available_fn=lambda device_detail: device_detail[BATTERY_POWER] is not None,
-        value_fn=lambda device_detail: device_detail[BATTERY_POWER],
-        native_unit_of_measurement="W",
+        available_fn=lambda d: _is_property_available(d, BATTERY_POWER),
+        value_fn=lambda d: extract_property_value(d.get(BATTERY_POWER)),
+        native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     HinenSensorEntityDescription(
         key=GRID_TOTAL_POWER,
         translation_key=GRID_TOTAL_POWER,
-        available_fn=lambda device_detail: device_detail[GRID_TOTAL_POWER] is not None,
-        value_fn=lambda device_detail: device_detail[GRID_TOTAL_POWER],
-        native_unit_of_measurement="W",
+        available_fn=lambda d: _is_property_available(d, GRID_TOTAL_POWER),
+        value_fn=lambda d: extract_property_value(d.get(GRID_TOTAL_POWER)),
+        native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
     ),
@@ -107,9 +120,9 @@ SENSOR_TYPES = [
     HinenSensorEntityDescription(
         key=SOC,
         translation_key=SOC,
-        available_fn=lambda device_detail: device_detail[SOC] is not None,
-        value_fn=lambda device_detail: device_detail[SOC],
-        native_unit_of_measurement="%",
+        available_fn=lambda d: _is_property_available(d, SOC),
+        value_fn=lambda d: extract_property_value(d.get(SOC)),
+        native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
     ),
@@ -118,8 +131,8 @@ SENSOR_TYPES = [
         translation_key=CUMULATIVE_CONSUMPTION,
         available_fn=lambda device_detail: device_detail[CUMULATIVE_CONSUMPTION]
         is not None,
-        value_fn=lambda device_detail: device_detail[CUMULATIVE_CONSUMPTION],
-        native_unit_of_measurement="kWh",
+        value_fn=lambda d: extract_property_value(d.get(CUMULATIVE_CONSUMPTION)),
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
     ),
@@ -128,8 +141,8 @@ SENSOR_TYPES = [
         translation_key=CUMULATIVE_PRODUCTION_ACTIVE,
         available_fn=lambda device_detail: device_detail[CUMULATIVE_PRODUCTION_ACTIVE]
         is not None,
-        value_fn=lambda device_detail: device_detail[CUMULATIVE_PRODUCTION_ACTIVE],
-        native_unit_of_measurement="kWh",
+        value_fn=lambda d: extract_property_value(d.get(CUMULATIVE_PRODUCTION_ACTIVE)),
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
     ),
@@ -138,8 +151,8 @@ SENSOR_TYPES = [
         translation_key=CUMULATIVE_GRID_FEED_IN,
         available_fn=lambda device_detail: device_detail[CUMULATIVE_GRID_FEED_IN]
         is not None,
-        value_fn=lambda device_detail: device_detail[CUMULATIVE_GRID_FEED_IN],
-        native_unit_of_measurement="kWh",
+        value_fn=lambda d: extract_property_value(d.get(CUMULATIVE_GRID_FEED_IN)),
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
     ),
@@ -148,8 +161,8 @@ SENSOR_TYPES = [
         translation_key=TOTAL_CHARGING_ENERGY,
         available_fn=lambda device_detail: device_detail[TOTAL_CHARGING_ENERGY]
         is not None,
-        value_fn=lambda device_detail: device_detail[TOTAL_CHARGING_ENERGY],
-        native_unit_of_measurement="kWh",
+        value_fn=lambda d: extract_property_value(d.get(TOTAL_CHARGING_ENERGY)),
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
     ),
@@ -158,8 +171,8 @@ SENSOR_TYPES = [
         translation_key=TOTAL_DISCHARGING_ENERGY,
         available_fn=lambda device_detail: device_detail[TOTAL_DISCHARGING_ENERGY]
         is not None,
-        value_fn=lambda device_detail: device_detail[TOTAL_DISCHARGING_ENERGY],
-        native_unit_of_measurement="kWh",
+        value_fn=lambda d: extract_property_value(d.get(TOTAL_DISCHARGING_ENERGY)),
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
     ),
@@ -168,8 +181,8 @@ SENSOR_TYPES = [
         translation_key=CUMULATIVE_ENERGY_PURCHASED,
         available_fn=lambda device_detail: device_detail[CUMULATIVE_ENERGY_PURCHASED]
         is not None,
-        value_fn=lambda device_detail: device_detail[CUMULATIVE_ENERGY_PURCHASED],
-        native_unit_of_measurement="kWh",
+        value_fn=lambda d: extract_property_value(d.get(CUMULATIVE_ENERGY_PURCHASED)),
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
     ),
@@ -192,7 +205,9 @@ async def async_setup_entry(
         device_data = coordinator.data[device_id]
         for sensor_type in SENSOR_TYPES:
             if device_data.get(sensor_type.key) is not None:
-                entities.append(HinenSensor(coordinator, hinen_open, sensor_type, device_id))
+                entities.append(
+                    HinenSensor(coordinator, hinen_open, sensor_type, device_id)
+                )
 
     async_add_entities(entities)
 

@@ -56,14 +56,24 @@ class HinenDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                     ATTR_STATUS: device_detail.status,
                     ATTR_ALERT_STATUS: device_detail.alert_status,
                     **{
-                        key: next(
-                            (
-                                prop.value
-                                for prop in device_detail.properties
-                                if prop.identifier == identifier
+                        key: {
+                            "value": next(
+                                (
+                                    prop.value
+                                    for prop in device_detail.properties
+                                    if prop.identifier == identifier
+                                ),
+                                None,
                             ),
-                            None,
-                        )
+                            "specs": next(
+                                (
+                                    prop.specs
+                                    for prop in device_detail.properties
+                                    if prop.identifier == identifier
+                                ),
+                                None,
+                            )
+                        }
                         for key, identifier in PROPERTIES.items()
                     },
                 }
