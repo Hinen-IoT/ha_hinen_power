@@ -189,7 +189,7 @@ cards:
         state: time_period
     card:
       type: entities
-      title: ⚡Charge/discharge priority time period configuration
+      title: ⚡Charge/Discharge Period Configuration
       entities:
         {% for period in range(1, 7) %}
         - type: section
@@ -197,13 +197,13 @@ cards:
         - entity: switch.{{ device_name }}_cd_period_{{ period }}_enable
           name: Enable
         - entity: number.{{ device_name }}_cd_period_{{ period }}_rate
-          name: Rate
+          name: Rate (%)
         - entity: number.{{ device_name }}_cd_period_{{ period }}_stop_soc
-          name: Cutoff SOC
+          name: Cutoff SOC (%)
         - entity: number.{{ device_name }}_cd_period_{{ period }}_start
-          name: Start time
+          name: Start Time
         - entity: number.{{ device_name }}_cd_period_{{ period }}_end
-          name: End time
+          name: End Time
         {% endfor %}
       show_header_toggle: false
       state_color: true

@@ -47,76 +47,76 @@
     "entity": {
         "number": {
             "cd_period_times_1_end": {
-                "name": "CD Period 1 End"
+                "name": "Charge/Discharge Period 1 End"
             },
             "cd_period_times_1_rate": {
-                "name": "CD Period 1 Rate"
+                "name": "Charge/Discharge Period 1 Rate"
             },
             "cd_period_times_1_start": {
-                "name": "CD Period 1 Start"
+                "name": "Charge/Discharge Period 1 Start"
             },
             "cd_period_times_1_stop_soc": {
-                "name": "CD Period 1 Stop SOC"
+                "name": "Charge/Discharge Period 1 Stop SOC"
             },
             "cd_period_times_2_end": {
-                "name": "CD Period 2 End"
+                "name": "Charge/Discharge Period 2 End"
             },
             "cd_period_times_2_rate": {
-                "name": "CD Period 2 Rate"
+                "name": "Charge/Discharge Period 2 Rate"
             },
             "cd_period_times_2_start": {
-                "name": "CD Period 2 Start"
+                "name": "Charge/Discharge Period 2 Start"
             },
             "cd_period_times_2_stop_soc": {
-                "name": "CD Period 2 Stop SOC"
+                "name": "Charge/Discharge Period 2 Stop SOC"
             },
             "cd_period_times_3_end": {
-                "name": "CD Period 3 End"
+                "name": "Charge/Discharge Period 3 End"
             },
             "cd_period_times_3_rate": {
-                "name": "CD Period 3 Rate"
+                "name": "Charge/Discharge Period 3 Rate"
             },
             "cd_period_times_3_start": {
-                "name": "CD Period 3 Start"
+                "name": "Charge/Discharge Period 3 Start"
             },
             "cd_period_times_3_stop_soc": {
-                "name": "CD Period 3 Stop SOC"
+                "name": "Charge/Discharge Period 3 Stop SOC"
             },
             "cd_period_times_4_end": {
-                "name": "CD Period 4 End"
+                "name": "Charge/Discharge Period 4 End"
             },
             "cd_period_times_4_rate": {
-                "name": "CD Period 4 Rate"
+                "name": "Charge/Discharge Period 4 Rate"
             },
             "cd_period_times_4_start": {
-                "name": "CD Period 4 Start"
+                "name": "Charge/Discharge Period 4 Start"
             },
             "cd_period_times_4_stop_soc": {
-                "name": "CD Period 4 Stop SOC"
+                "name": "Charge/Discharge Period 4 Stop SOC"
             },
             "cd_period_times_5_end": {
-                "name": "CD Period 5 End"
+                "name": "Charge/Discharge Period 5 End"
             },
             "cd_period_times_5_rate": {
-                "name": "CD Period 5 Rate"
+                "name": "Charge/Discharge Period 5 Rate"
             },
             "cd_period_times_5_start": {
-                "name": "CD Period 5 Start"
+                "name": "Charge/Discharge Period 5 Start"
             },
             "cd_period_times_5_stop_soc": {
-                "name": "CD Period 5 Stop SOC"
+                "name": "Charge/Discharge Period 5 Stop SOC"
             },
             "cd_period_times_6_end": {
-                "name": "CD Period 6 End"
+                "name": "Charge/Discharge Period 6 End"
             },
             "cd_period_times_6_rate": {
-                "name": "CD Period 6 Rate"
+                "name": "Charge/Discharge Period 6 Rate"
             },
             "cd_period_times_6_start": {
-                "name": "CD Period 6 Start"
+                "name": "Charge/Discharge Period 6 Start"
             },
             "cd_period_times_6_stop_soc": {
-                "name": "CD Period 6 Stop SOC"
+                "name": "Charge/Discharge Period 6 Stop SOC"
             },
             "charge_stop_soc": {
                 "name": "Charge Stop SOC"
@@ -250,22 +250,22 @@
         },
         "switch": {
             "cd_period_times_1_enable": {
-                "name": "CD Period 1 Enable"
+                "name": "Charge/Discharge Period 1 Enable"
             },
             "cd_period_times_2_enable": {
-                "name": "CD Period 2 Enable"
+                "name": "Charge/Discharge Period 2 Enable"
             },
             "cd_period_times_3_enable": {
-                "name": "CD Period 3 Enable"
+                "name": "Charge/Discharge Period 3 Enable"
             },
             "cd_period_times_4_enable": {
-                "name": "CD Period 4 Enable"
+                "name": "Charge/Discharge Period 4 Enable"
             },
             "cd_period_times_5_enable": {
-                "name": "CD Period 5 Enable"
+                "name": "Charge/Discharge Period 5 Enable"
             },
             "cd_period_times_6_enable": {
-                "name": "CD Period 6 Enable"
+                "name": "Charge/Discharge Period 6 Enable"
             },
             "power_protection_period_1_ac_enable": {
                 "name": "Power Protection Period 1 AC Enable"
