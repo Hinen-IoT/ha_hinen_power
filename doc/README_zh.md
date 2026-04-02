@@ -189,15 +189,15 @@ cards:
         {% for period in range(1, 7) %}
         - type: section
           label: 时段{{ period }}
-        - entity: switch.{{ device_name }}_cd_period_{{ period }}_enable
+        - entity: switch.{{ device_name }}_charge_discharge_period_{{ period }}_enable
           name: 启用
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_rate
+        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_rate
           name: 速率
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_stop_soc
+        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_stop_soc
           name: 截止SOC
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_start
+        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_start_time
           name: 开始时间
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_end
+        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_end_time
           name: 结束时间
         {% endfor %}
       show_header_toggle: false
@@ -219,7 +219,7 @@ cards:
           name: 启用
         - entity: number.{{ device_name }}_power_protection_period_{{ period }}_power
           name: 功率
-        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_start_time
+        - entity: time.{{ device_name }}_power_protection_period_{{ period }}_start_time
           name: 开始时间
         - entity: number.{{ device_name }}_power_protection_period_{{ period }}_soc
           name: SOC

@@ -1,7 +1,7 @@
 {
   "config": {
     "abort": {
-      "access_not_configured": "Please read the below message we got from Google:\n\n{message}",
+      "access_not_configured": "Please read the message below from the Hinen service:\n\n{message}",
       "no_device": "Please create a Hinen Device to be able to use the integration",
       "already_configured": "[%key:common::config_flow::abort::already_configured_account%]",
       "reauth_successful": "[%key:common::config_flow::abort::reauth_successful%]",
@@ -125,98 +125,129 @@
       "grid_first_stop_soc": {
         "name": "Grid First Stop SOC"
       },
-      "cd_period_times_1_start": {
-        "name": "CD Period 1 Start"
-      },
       "cd_period_times_1_rate": {
-        "name": "CD Period 1 Rate"
-      },
-      "cd_period_times_1_end": {
-        "name": "CD Period 1 End"
+        "name": "Charge/Discharge Period 1 Rate"
       },
       "cd_period_times_1_stop_soc": {
-        "name": "CD Period 1 Stop SOC"
-      },
-      "cd_period_times_2_start": {
-        "name": "CD Period 2 Start"
+        "name": "Charge/Discharge Period 1 Stop SOC"
       },
       "cd_period_times_2_rate": {
-        "name": "CD Period 2 Rate"
-      },
-      "cd_period_times_2_end": {
-        "name": "CD Period 2 End"
+        "name": "Charge/Discharge Period 2 Rate"
       },
       "cd_period_times_2_stop_soc": {
-        "name": "CD Period 2 Stop SOC"
-      },
-      "cd_period_times_3_start": {
-        "name": "CD Period 3 Start"
+        "name": "Charge/Discharge Period 2 Stop SOC"
       },
       "cd_period_times_3_rate": {
-        "name": "CD Period 3 Rate"
-      },
-      "cd_period_times_3_end": {
-        "name": "CD Period 3 End"
+        "name": "Charge/Discharge Period 3 Rate"
       },
       "cd_period_times_3_stop_soc": {
-        "name": "CD Period 3 Stop SOC"
-      },
-      "cd_period_times_4_start": {
-        "name": "CD Period 4 Start"
+        "name": "Charge/Discharge Period 3 Stop SOC"
       },
       "cd_period_times_4_rate": {
-        "name": "CD Period 4 Rate"
-      },
-      "cd_period_times_4_end": {
-        "name": "CD Period 4 End"
+        "name": "Charge/Discharge Period 4 Rate"
       },
       "cd_period_times_4_stop_soc": {
-        "name": "CD Period 4 Stop SOC"
-      },
-      "cd_period_times_5_start": {
-        "name": "CD Period 5 Start"
+        "name": "Charge/Discharge Period 4 Stop SOC"
       },
       "cd_period_times_5_rate": {
-        "name": "CD Period 5 Rate"
-      },
-      "cd_period_times_5_end": {
-        "name": "CD Period 5 End"
+        "name": "Charge/Discharge Period 5 Rate"
       },
       "cd_period_times_5_stop_soc": {
-        "name": "CD Period 5 Stop SOC"
-      },
-      "cd_period_times_6_start": {
-        "name": "CD Period 6 Start"
+        "name": "Charge/Discharge Period 5 Stop SOC"
       },
       "cd_period_times_6_rate": {
-        "name": "CD Period 6 Rate"
-      },
-      "cd_period_times_6_end": {
-        "name": "CD Period 6 End"
+        "name": "Charge/Discharge Period 6 Rate"
       },
       "cd_period_times_6_stop_soc": {
-        "name": "CD Period 6 Stop SOC"
+        "name": "Charge/Discharge Period 6 Stop SOC"
       }
     },
     "switch": {
       "cd_period_times_1_enable": {
-        "name": "CD Period 1 Enable"
+        "name": "Charge/Discharge Period 1 Enable"
       },
       "cd_period_times_2_enable": {
-        "name": "CD Period 2 Enable"
+        "name": "Charge/Discharge Period 2 Enable"
       },
       "cd_period_times_3_enable": {
-        "name": "CD Period 3 Enable"
+        "name": "Charge/Discharge Period 3 Enable"
       },
       "cd_period_times_4_enable": {
-        "name": "CD Period 4 Enable"
+        "name": "Charge/Discharge Period 4 Enable"
       },
       "cd_period_times_5_enable": {
-        "name": "CD Period 5 Enable"
+        "name": "Charge/Discharge Period 5 Enable"
       },
       "cd_period_times_6_enable": {
-        "name": "CD Period 6 Enable"
+        "name": "Charge/Discharge Period 6 Enable"
       }
+    },
+    "time": {
+      "cd_period_times_1_start_time": {
+        "name": "Charge/Discharge Period 1 Start Time"
+      },
+      "cd_period_times_1_end_time": {
+        "name": "Charge/Discharge Period 1 End Time"
+      },
+      "cd_period_times_2_start_time": {
+        "name": "Charge/Discharge Period 2 Start Time"
+      },
+      "cd_period_times_2_end_time": {
+        "name": "Charge/Discharge Period 2 End Time"
+      },
+      "cd_period_times_3_start_time": {
+        "name": "Charge/Discharge Period 3 Start Time"
+      },
+      "cd_period_times_3_end_time": {
+        "name": "Charge/Discharge Period 3 End Time"
+      },
+      "cd_period_times_4_start_time": {
+        "name": "Charge/Discharge Period 4 Start Time"
+      },
+      "cd_period_times_4_end_time": {
+        "name": "Charge/Discharge Period 4 End Time"
+      },
+      "cd_period_times_5_start_time": {
+        "name": "Charge/Discharge Period 5 Start Time"
+      },
+      "cd_period_times_5_end_time": {
+        "name": "Charge/Discharge Period 5 End Time"
+      },
+      "cd_period_times_6_start_time": {
+        "name": "Charge/Discharge Period 6 Start Time"
+      },
+      "cd_period_times_6_end_time": {
+        "name": "Charge/Discharge Period 6 End Time"
+      },
+      "power_protection_period_1_start_time": {
+        "name": "Power Protection Period 1 Start Time"
+      },
+      "power_protection_period_2_start_time": {
+        "name": "Power Protection Period 2 Start Time"
+      },
+      "power_protection_period_3_start_time": {
+        "name": "Power Protection Period 3 Start Time"
+      },
+      "power_protection_period_4_start_time": {
+        "name": "Power Protection Period 4 Start Time"
+      },
+      "power_protection_period_5_start_time": {
+        "name": "Power Protection Period 5 Start Time"
+      },
+      "power_protection_period_6_start_time": {
+        "name": "Power Protection Period 6 Start Time"
+      }
+    }
+  },
+  "exceptions": {
+    "start_time_equal_or_after_end_time": {
+      "message": "Start time ({start_time}) must be before end time ({end_time}) for Period {period}"
+    },
+    "end_time_equal_or_before_start_time": {
+      "message": "End time ({end_time}) must be after start time ({start_time}) for Period {period}"
+    },
+    "period_overlap": {
+      "message": "Period {period} ({period_start} - {period_end}) overlaps with Period {conflict_period} ({conflict_start} - {conflict_end})"
     }
   }
 }

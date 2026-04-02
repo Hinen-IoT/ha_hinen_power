@@ -22,7 +22,7 @@ from .auth_config import AsyncConfigEntryAuth
 from .const import AUTH, CLIENT_ID, COORDINATOR, DOMAIN
 from .coordinator import HinenDataUpdateCoordinator
 
-PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR, Platform.SWITCH]
+PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR, Platform.SWITCH, Platform.TIME]
 
 
 async def async_setup_entry(

@@ -98,6 +98,62 @@
         "name": "电池剩余容量"
       }
     },
+    "time": {
+      "cd_period_times_1_start_time": {
+        "name": "充电/放电周期1起始时间"
+      },
+      "cd_period_times_1_end_time": {
+        "name": "充电/放电周期1结束时间"
+      },
+      "cd_period_times_2_start_time": {
+        "name": "充电/放电周期2起始时间"
+      },
+      "cd_period_times_2_end_time": {
+        "name": "充电/放电周期2结束时间"
+      },
+      "cd_period_times_3_start_time": {
+        "name": "充电/放电周期3起始时间"
+      },
+      "cd_period_times_3_end_time": {
+        "name": "充电/放电周期3结束时间"
+      },
+      "cd_period_times_4_start_time": {
+        "name": "充电/放电周期4起始时间"
+      },
+      "cd_period_times_4_end_time": {
+        "name": "充电/放电周期4结束时间"
+      },
+      "cd_period_times_5_start_time": {
+        "name": "充电/放电周期5起始时间"
+      },
+      "cd_period_times_5_end_time": {
+        "name": "充电/放电周期5结束时间"
+      },
+      "cd_period_times_6_start_time": {
+        "name": "充电/放电周期6起始时间"
+      },
+      "cd_period_times_6_end_time": {
+        "name": "充电/放电周期6结束时间"
+      },
+      "power_protection_period_1_start_time": {
+        "name": "保电模式时段1起始时间"
+      },
+      "power_protection_period_2_start_time": {
+        "name": "保电模式时段2起始时间"
+      },
+      "power_protection_period_3_start_time": {
+        "name": "保电模式时段3起始时间"
+      },
+      "power_protection_period_4_start_time": {
+        "name": "保电模式时段4起始时间"
+      },
+      "power_protection_period_5_start_time": {
+        "name": "保电模式时段5起始时间"
+      },
+      "power_protection_period_6_start_time": {
+        "name": "保电模式时段6起始时间"
+      }
+    },
     "select": {
       "work_mode_setting": {
         "name": "工作模式",
@@ -121,74 +177,38 @@
       "grid_first_stop_soc": {
         "name": "电池强放截止SOC"
       },
-      "cd_period_times_1_start": {
-        "name": "充电/放电周期1起始时间"
-      },
       "cd_period_times_1_rate": {
         "name": "充电/放电周期1充放电功率百分比"
-      },
-      "cd_period_times_1_end": {
-        "name": "充电/放电周期1结束时间"
       },
       "cd_period_times_1_stop_soc": {
         "name": "充电/放电周期1截止SOC"
       },
-      "cd_period_times_2_start": {
-        "name": "充电/放电周期2起始时间"
-      },
       "cd_period_times_2_rate": {
         "name": "充电/放电周期2充放电功率百分比"
-      },
-      "cd_period_times_2_end": {
-        "name": "充电/放电周期2结束时间"
       },
       "cd_period_times_2_stop_soc": {
         "name": "充电/放电周期2截止SOC"
       },
-      "cd_period_times_3_start": {
-        "name": "充电/放电周期3起始时间"
-      },
       "cd_period_times_3_rate": {
         "name": "充电/放电周期3充放电功率百分比"
-      },
-      "cd_period_times_3_end": {
-        "name": "充电/放电周期3结束时间"
       },
       "cd_period_times_3_stop_soc": {
         "name": "充电/放电周期3截止SOC"
       },
-      "cd_period_times_4_start": {
-        "name": "充电/放电周期4起始时间"
-      },
       "cd_period_times_4_rate": {
         "name": "充电/放电周期4充放电功率百分比"
-      },
-      "cd_period_times_4_end": {
-        "name": "充电/放电周期4结束时间"
       },
       "cd_period_times_4_stop_soc": {
         "name": "充电/放电周期4截止SOC"
       },
-      "cd_period_times_5_start": {
-        "name": "充电/放电周期5起始时间"
-      },
       "cd_period_times_5_rate": {
         "name": "充电/放电周期5充放电功率百分比"
-      },
-      "cd_period_times_5_end": {
-        "name": "充电/放电周期5结束时间"
       },
       "cd_period_times_5_stop_soc": {
         "name": "充电/放电周期5截止SOC"
       },
-      "cd_period_times_6_start": {
-        "name": "充电/放电周期6起始时间"
-      },
       "cd_period_times_6_rate": {
         "name": "充电/放电周期6充放电功率百分比"
-      },
-      "cd_period_times_6_end": {
-        "name": "充电/放电周期6结束时间"
       },
       "cd_period_times_6_stop_soc": {
         "name": "充电/放电周期6截止SOC"
@@ -285,6 +305,17 @@
       "power_protection_period_6_ac_enable": {
         "name": "保电模式时段6AC使能"
       }
+    }
+  },
+  "exceptions": {
+    "start_time_after_end_time": {
+      "message": "周期{period}的起始时间({start_time})必须早于结束时间({end_time})"
+    },
+    "end_time_before_start_time": {
+      "message": "周期{period}的结束时间({end_time})必须晚于起始时间({start_time})"
+    },
+    "period_overlap": {
+      "message": "周期{period}({period_start} - {period_end})与周期{conflict_period}({conflict_start} - {conflict_end})时间重叠"
     }
   },
   "options": {

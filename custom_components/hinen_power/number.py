@@ -10,7 +10,7 @@ from hinen_open_api import HinenOpen
 from hinen_open_api.models import SpecsDefinition
 from homeassistant.components.number import NumberEntity, NumberEntityDescription
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfPower, UnitOfTime
+from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfPower
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
@@ -104,21 +104,7 @@ NUMBER_TYPES = [
 # Generate CD Period Times entity descriptions for 0-6 periods
 CD_PERIOD_TIMES_TYPES = []
 for period_index in range(6):  # 0-5 periods
-    # Period Start
-    CD_PERIOD_TIMES_TYPES.append(
-        HinenCDPeriodTimesEntityDescription(
-            key=f"cd_period_times_{period_index + 1}_start",
-            translation_key=f"cd_period_times_{period_index + 1}_start",
-            entity_category=EntityCategory.CONFIG,
-            native_min_value=0,
-            native_max_value=1440,
-            native_step=1,
-            period_index=period_index,
-            property_key=PERIOD_TIME_START,
-            native_unit_of_measurement=UnitOfTime.MINUTES,
-        )
-    )
-    # Period Rate
+    # Period Rate (percentage)
     CD_PERIOD_TIMES_TYPES.append(
         HinenCDPeriodTimesEntityDescription(
             key=f"cd_period_times_{period_index + 1}_rate",
@@ -132,21 +118,7 @@ for period_index in range(6):  # 0-5 periods
             native_unit_of_measurement=PERCENTAGE,
         )
     )
-    # Period End
-    CD_PERIOD_TIMES_TYPES.append(
-        HinenCDPeriodTimesEntityDescription(
-            key=f"cd_period_times_{period_index + 1}_end",
-            translation_key=f"cd_period_times_{period_index + 1}_end",
-            entity_category=EntityCategory.CONFIG,
-            native_min_value=0,
-            native_max_value=1440,
-            native_step=1,
-            period_index=period_index,
-            property_key=PERIOD_TIME_END,
-            native_unit_of_measurement=UnitOfTime.MINUTES,
-        )
-    )
-    # Period Stop SOC
+    # Period Stop SOC (percentage)
     CD_PERIOD_TIMES_TYPES.append(
         HinenCDPeriodTimesEntityDescription(
             key=f"cd_period_times_{period_index + 1}_stop_soc",
@@ -177,20 +149,6 @@ for period_index in range(6):  # 0-5 periods
             period_index=period_index,
             property_key=PERIOD_SOC,
             native_unit_of_measurement=PERCENTAGE,
-        )
-    )
-    # Period Start Time
-    POWER_PROTECTION_TYPES.append(
-        HinenPowerProtectionNumberEntityDescription(
-            key=f"power_protection_period_{period_index + 1}_start_time",
-            translation_key=f"power_protection_period_{period_index + 1}_start_time",
-            entity_category=EntityCategory.CONFIG,
-            native_min_value=0,
-            native_max_value=1440,
-            native_step=1,
-            period_index=period_index,
-            property_key=PERIOD_START_TIME,
-            native_unit_of_measurement=UnitOfTime.MINUTES,
         )
     )
     # Period Power

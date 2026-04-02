@@ -194,15 +194,15 @@ cards:
         {% for period in range(1, 7) %}
         - type: section
           label: Period {{ period }}
-        - entity: switch.{{ device_name }}_cd_period_{{ period }}_enable
+        - entity: switch.{{ device_name }}_charge_discharge_period_{{ period }}_enable
           name: Enable
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_rate
+        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_rate
           name: Rate (%)
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_stop_soc
+        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_stop_soc
           name: Cutoff SOC (%)
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_start
+        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_start_time
           name: Start Time
-        - entity: number.{{ device_name }}_cd_period_{{ period }}_end
+        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_end_time
           name: End Time
         {% endfor %}
       show_header_toggle: false
@@ -224,7 +224,7 @@ cards:
           name: Enable
         - entity: number.{{ device_name }}_power_protection_period_{{ period }}_power
           name: Power
-        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_start_time
+        - entity: time.{{ device_name }}_power_protection_period_{{ period }}_start_time
           name: Start Time
         - entity: number.{{ device_name }}_power_protection_period_{{ period }}_soc
           name: SOC
