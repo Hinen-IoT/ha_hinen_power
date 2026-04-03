@@ -61,6 +61,21 @@ PERIOD_AC_ENABLE = "PeriodACEnable"
 PERIOD_START_TIME = "PeriodStartTime"
 PERIOD_POWER = "PeriodPower"
 
+# VPP Type constants (values from hinen_open_api enum)
+VPP_TYPE_NONE = 0
+VPP_TYPE_EVERGEN = 1
+VPP_TYPE_SYNERGY = 3
+VPP_TYPE_GBB_OPTIMIZER = 5
+VPP_TYPE_TEST = 100
+
+VPP_TYPE_OPTIONS = {
+    VPP_TYPE_NONE: "none",
+    VPP_TYPE_EVERGEN: "evergen",
+    VPP_TYPE_SYNERGY: "synergy",
+    VPP_TYPE_GBB_OPTIMIZER: "gbb_optimizer",
+    VPP_TYPE_TEST: "test",
+}
+
 CUMULATIVE_CONSUMPTION = "cumulative_consumption"
 CUMULATIVE_PRODUCTION_ACTIVE = "cumulative_production_active"
 CUMULATIVE_GRID_FEED_IN = "cumulative_grid_feed_in"
@@ -74,6 +89,8 @@ BATTERY_POWER = "battery_power"
 GRID_TOTAL_POWER = "grid_total_power"
 # Battery charge level sensor
 SOC = "soc"
+# VPP Type sensor
+VPP_TYPE = "vpp_type"
 
 PROPERTIES = {
     LOAD_FIRST_STOP_SOC: "LoadFirstStopSOC",
@@ -95,6 +112,8 @@ PROPERTIES = {
     GRID_TOTAL_POWER: "GridTotalPower",
     # Battery charge level sensor
     SOC: "SOC",
+    # VPP Type sensor
+    VPP_TYPE: "VPPType",
 }
 
 ATTR_AUTH_LANGUAGE = "page_language"

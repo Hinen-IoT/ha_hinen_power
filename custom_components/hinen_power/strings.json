@@ -100,6 +100,16 @@
       },
       "soc": {
         "name": "Total Battery SoC"
+      },
+      "vpp_type": {
+        "name": "VPP Company",
+        "state": {
+          "none": "None",
+          "evergen": "Evergen",
+          "synergy": "Synergy",
+          "gbb_optimizer": "Gbb Optimizer",
+          "test": "Test"
+        }
       }
     },
     "select": {

@@ -96,6 +96,16 @@
       },
       "soc":{
         "name": "电池剩余容量"
+      },
+      "vpp_type": {
+        "name": "VPP公司",
+        "state": {
+          "none": "无",
+          "evergen": "Evergen",
+          "synergy": "Synergy",
+          "gbb_optimizer": "Gbb Optimizer",
+          "test": "Test"
+        }
       }
     },
     "time": {

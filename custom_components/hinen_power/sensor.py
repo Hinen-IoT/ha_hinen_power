@@ -37,6 +37,9 @@ from .const import (
     TOTAL_CHARGING_ENERGY,
     TOTAL_DISCHARGING_ENERGY,
     TOTAL_LOAD_POWER,
+    VPP_TYPE,
+    VPP_TYPE_NONE,
+    VPP_TYPE_OPTIONS,
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
@@ -185,6 +188,15 @@ SENSOR_TYPES = [
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
+    ),
+    HinenSensorEntityDescription(
+        key=VPP_TYPE,
+        translation_key=VPP_TYPE,
+        available_fn=lambda d: _is_property_available(d, VPP_TYPE),
+        value_fn=lambda device_detail: VPP_TYPE_OPTIONS.get(
+            extract_property_value(device_detail.get(VPP_TYPE)),
+            VPP_TYPE_OPTIONS[VPP_TYPE_NONE]
+        ),
     ),
 ]
 
