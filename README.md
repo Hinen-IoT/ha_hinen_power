@@ -60,6 +60,7 @@ The Hinen Power integration allows you to connect Hinen devices to Home Assistan
   - Battery power
   - Grid total power
   - Total Battery SoC
+  - VPP Company
 
 - Select
   - Working mode (state options: not enabled, self-consumption, battery priority, grid priority, time period control, power protection mode)
@@ -116,9 +117,21 @@ To set up a custom card, you need to replace the **device identifier** with **yo
 4. Copy the generated yaml configuration
 5. Go to "**Home > Overview > Edit > Add Card > Manual Edit**", put the copied yaml configuration into the template and click finish
 
-It is recommended to use this method to install the Hinen integration. When there is a specific version and you want to update to a specific version, you only need to switch to the corresponding Tag.
+## VPP Company
+```yaml
+{% set device_name = "device identifier" %}
+type: entities
+entities:
+  - entity: sensor.{{device_name}}_vpp_company
+title: VPP Company
+state_color: true
+visibility:
+  - condition: state
+    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    state: none
+```
 
-### Device Working Mode Settings
+## Device Working Mode Settings (Note: Will be hidden when VPP Company exists)
 
 ```yaml
 {% set device_name = "device identifier" %}
@@ -126,6 +139,21 @@ It is recommended to use this method to install the Hinen integration. When ther
 type: entities
 entities:
   - entity: select.{{device_name}}_work_mode
+title: Working Mode Settings
+state_color: true
+visibility:
+  - condition: state
+    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    state: none
+```
+
+## Device Information
+
+```yaml
+{% set device_name = "device identifier" %}
+
+type: entities
+entities:
   - entity: sensor.{{device_name}}_status
   - entity: sensor.{{device_name}}_alert_status
   - entity: sensor.{{device_name}}_generation_power
@@ -136,7 +164,7 @@ entities:
 title: Working Mode Settings
 state_color: true
 ```
-### Display attributes associated with each mode according to working mode
+## Display attributes associated with each mode according to working mode (Note: Will be hidden when VPP Company exists)
 
 ```yaml
 {% set device_name = "device identifier" %}
@@ -231,4 +259,8 @@ cards:
         {% endfor %}
       show_header_toggle: false
       state_color: true
+visibility:
+  - condition: state
+    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    state: none
 ```

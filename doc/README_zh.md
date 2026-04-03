@@ -59,6 +59,7 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
   - 电池功率
   - 电网功率
   - 电池剩余容量
+  - VPP公司
 
 - 选择器
   - 工作模式（状态选项：不启用、自发自用、电池优先、并网优先、时间段控制、保电模式）
@@ -113,14 +114,41 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
 4. 复制生成的yaml配置
 5. 进入"**首页>概览>编辑>添加卡片>手动编辑**"，将复制的yaml配置放到模板中点击完成即可
 
-## 设备工作模式设置
+## VPP 公司
+```yaml
+{% set device_name = "single_phase_hybrid_inverter_2_way_pv" %}
+type: entities
+entities:
+  - entity: sensor.{{device_name}}_vpp_company
+title: VPP公司
+state_color: true
+visibility:
+  - condition: state
+    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    state: none
+```
+
+## 设备工作模式设置（注意：VPP 公司存在时，将会不可见）
+```yaml
+{% set device_name = "你的设备标识" %}
+type: entities
+entities:
+  - entity: select.{{device_name}}_work_mode
+title: 工作模式设置
+state_color: true
+visibility:
+  - condition: state
+    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    state: none
+```
+
+## 设备信息
 
 ```yaml
 {% set device_name = "你的设备标识" %}
 
 type: entities
 entities:
-  - entity: select.{{device_name}}_work_mode
   - entity: sensor.{{device_name}}_status
   - entity: sensor.{{device_name}}_alert_status
   - entity: sensor.{{device_name}}_generation_power
@@ -131,7 +159,7 @@ entities:
 title: 工作模式设置
 state_color: true
 ```
-## 根据工作模式显示各个模式下关联的属性
+## 根据工作模式显示各个模式下关联的属性（注意：VPP 公司存在时，将会不可见）
 
 ```yaml
 {% set device_name = "你的设备标识" %}
@@ -226,4 +254,8 @@ cards:
         {% endfor %}
       show_header_toggle: false
       state_color: true
+visibility:
+  - condition: state
+    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    state: none
 ```
