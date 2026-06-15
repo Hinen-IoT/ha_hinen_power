@@ -9,6 +9,6 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/Hinen-IoT/ha_hinen_power/issues",
   "quality_scale": "bronze",
-  "requirements": ["hinen-open-api==1.0.3rc1"],
-  "version": "1.0.2"
+  "requirements": ["hinen-open-api==1.0.3"],
+  "version": "1.1.0"
 }

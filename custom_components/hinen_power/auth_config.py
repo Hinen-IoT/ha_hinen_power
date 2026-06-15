@@ -18,10 +18,8 @@ from yarl import URL
 
 from .const import (
     ATTR_AUTH_LANGUAGE,
-    ATTR_CLIENT_SECRET,
     ATTR_REDIRECTION_URL,
     ATTR_REGION_CODE,
-    CLIENT_SECRET,
     HOST,
     REGION_CODE,
 )
@@ -95,7 +93,7 @@ class HinenImplementation(AuthImplementation):
         """Resolve the authorization code to tokens."""
         _LOGGER.info("Sending token request to %s", external_data)
         request_data: dict = {
-            "clientSecret": external_data[ATTR_CLIENT_SECRET],
+            "clientSecret": self.client_secret,
             "grantType": "1",
             "authorizationCode": external_data["code"],
             "regionCode": external_data[ATTR_REGION_CODE],
@@ -108,7 +106,7 @@ class HinenImplementation(AuthImplementation):
         new_token = await self._token_request(
             {
                 "grantType": "2",
-                "clientSecret": token.get(ATTR_CLIENT_SECRET),
+                "clientSecret": self.client_secret,
                 "regionCode": token.get(ATTR_REGION_CODE),
                 "refreshToken": token["refresh_token"],
             }
@@ -141,7 +139,8 @@ class HinenImplementation(AuthImplementation):
         custom_token = cast(dict[str, Any], await resp.json()).get("data", {})
         custom_token.update(
             {
-                CLIENT_SECRET: data.get(CLIENT_SECRET),
+                "clientId": self.client_id,
+                "clientSecret": self.client_secret,
                 REGION_CODE: data.get(REGION_CODE),
             }
         )
@@ -178,7 +177,6 @@ class HinenOAuth2AuthorizeCallbackView(http.HomeAssistantView):
         user_input: dict[str, Any] = {
             "state": state,
             ATTR_REGION_CODE: request.query[REGION_CODE],
-            ATTR_CLIENT_SECRET: request.query[CLIENT_SECRET],
         }
         if "code" in request.query:
             user_input["code"] = request.query["code"]

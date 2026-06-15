@@ -19,14 +19,18 @@
     "step": {
       "user": {
         "title": "认证跳转设置",
-                "description": "1. 您的海能用户信息和设备信息将存储在您的Home Assistant系统中。海能无法保证Home Assistant存储机制的安全性。您有责任防止您的信息被盗。\r\n2. 此集成由开源社区维护，可能存在稳定性问题或其他问题。当您遇到与此集成相关的问题时，您应该寻求开源社区的帮助，而不是联系海能客服。\r\n3. 您需要具备一些技术能力来维护您的本地操作环境，此集成对新手用户不友好。\r\n4. 使用此集成前请仔细阅读README。\r\n5. 为了让用户稳定使用集成并避免接口滥用，此集成仅允许在Home Assistant中使用。详情请参考LICENSE。",
+                "description": "1. 您的海能用户信息和设备信息将存储在您的Home Assistant系统中。海能无法保证Home Assistant存储机制的安全性。您有责任防止您的信息被盗。\r\n2. 此集成由开源社区维护，可能存在稳定性问题或其他问题。当您遇到与此集成相关的问题时，您应该寻求开源社区的帮助，而不是联系海能客服。\r\n3. 您需要具备一些技术能力来维护您的本地操作环境，此集成对新手用户不友好。\r\n4. 使用此集成前请仔细阅读README。\r\n5. 为了让用户稳定使用集成并避免接口滥用，此集成仅允许在Home Assistant中使用。详情请参考LICENSE。\r\n6. 申请客户端ID和客户端密钥，请访问 [开发者平台]({apply_url})。",
                 "data": {
                   "redirection_url": "重定向地址",
-                  "page_language": "认证页面语言"
+                  "page_language": "认证页面语言",
+                  "client_id": "客户端ID",
+                  "client_secret": "客户端密钥"
                 },
                 "data_description": {
                   "redirection_url": "",
-                  "page_language": ""
+                  "page_language": "",
+                  "client_id": "",
+                  "client_secret": ""
                 }
       },
       "devices": {

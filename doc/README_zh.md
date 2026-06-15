@@ -99,10 +99,15 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
 为了能够使用该集成，您需要有一个对应的Hinen Solar账号且您的账号下需要有一台或以上设备；
 
 # 配置
-1. 添加集成并按配置页面配置重定向地址(注意：重定向地址就是您的Home Assistant实例地址，不以”/“结尾)
-2. 跳转到Hinen oauth2认证页面
-3. 选择您的地区以及登录您的Hinen Solar账号
-4. 如果一切正常，会跳转到您的Home Assistant实例进行授权并显示账号下的所有可选设备
+
+1. 前往 [开发者平台](https://developer.celinksmart.com/zh_CN/feedback) 申请您的 Client ID 和 Client Secret。
+2. 添加集成并填写配置表单：
+   - **认证页面语言**：Hinen 认证页面的显示语言。
+   - **Client ID**：从开发者平台获取的 Client ID。
+   - **Client Secret**：从开发者平台获取的 Client Secret。
+   - **重定向地址**：您的 Home Assistant 实例地址（不以"/"结尾）。
+3. 页面将跳转到 Hinen OAuth2 认证页面，选择您的地区并登录您的 Hinen Solar 账号。
+4. 如果一切正常，会跳转回您的 Home Assistant 实例进行授权，并显示账号下的所有可选设备。请选择您要添加的设备。
 
 # 自定义卡片
 可选：根据hinen的相关实体简单配置自定义卡片示例，以达到更好对Hinen设备控制的效果
@@ -116,7 +121,7 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
 
 ## VPP 公司
 ```yaml
-{% set device_name = "single_phase_hybrid_inverter_2_way_pv" %}
+{% set device_name = "你的设备标识" %}
 type: entities
 entities:
   - entity: sensor.{{device_name}}_vpp_company
@@ -124,7 +129,7 @@ title: VPP公司
 state_color: true
 visibility:
   - condition: state
-    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    entity: sensor.{{device_name}}_vpp_company
     state: none
 ```
 
@@ -138,7 +143,7 @@ title: 工作模式设置
 state_color: true
 visibility:
   - condition: state
-    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    entity: sensor.{{device_name}}_vpp_company
     state: none
 ```
 
@@ -256,6 +261,6 @@ cards:
       state_color: true
 visibility:
   - condition: state
-    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    entity: sensor.{{device_name}}_vpp_company
     state: none
 ```

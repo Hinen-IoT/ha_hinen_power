@@ -16,7 +16,7 @@ from homeassistant.config_entries import (
     ConfigFlowResult,
     OptionsFlow,
 )
-from homeassistant.const import CONF_ACCESS_TOKEN, CONF_TOKEN
+from homeassistant.const import CONF_ACCESS_TOKEN, CONF_CLIENT_ID, CONF_CLIENT_SECRET, CONF_TOKEN
 from homeassistant.core import callback
 from homeassistant.helpers import config_entry_oauth2_flow
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -31,7 +31,9 @@ from .auth_config import HinenOAuth2AuthorizeCallbackView
 from .const import (
     ATTR_AUTH_LANGUAGE,
     ATTR_REDIRECTION_URL,
-    CLIENT_ID,
+    DEFAULT_HINEN_LANGUAGE,
+    FEEDBACK_URL_TEMPLATE,
+    HA_LANGUAGE_TO_HINEN,
     CONF_DEVICES,
     DOMAIN,
     HOST,
@@ -70,7 +72,9 @@ class OAuth2FlowHandler(
         if user_input is not None:
             self.hass.data[ATTR_AUTH_LANGUAGE] = user_input[ATTR_AUTH_LANGUAGE]
             self.hass.data[ATTR_REDIRECTION_URL] = user_input[ATTR_REDIRECTION_URL]
-            credential: ClientCredential = ClientCredential(CLIENT_ID, "")
+            credential: ClientCredential = ClientCredential(
+                user_input[CONF_CLIENT_ID], user_input[CONF_CLIENT_SECRET]
+            )
             self.hass.http.register_view(HinenOAuth2AuthorizeCallbackView())
             hinen_auth_impl: config_entry_oauth2_flow.AbstractOAuth2Implementation = (
                 await application_credentials.async_get_auth_implementation(
@@ -84,16 +88,21 @@ class OAuth2FlowHandler(
             )
             return await super().async_step_auth()
 
+        language = HA_LANGUAGE_TO_HINEN.get(self.hass.config.language, DEFAULT_HINEN_LANGUAGE)
+        apply_url = FEEDBACK_URL_TEMPLATE.format(language)
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
                 {
                     vol.Required(ATTR_AUTH_LANGUAGE): vol.In(dict(SUPPORTED_LANGUAGES)),
+                    vol.Required(CONF_CLIENT_ID): str,
+                    vol.Required(CONF_CLIENT_SECRET): str,
                     vol.Required(
                         ATTR_REDIRECTION_URL, default="http://127.0.0.1:8123"
                     ): str,
                 }
             ),
+            description_placeholders={"apply_url": apply_url},
         )
 
     async def async_step_reauth(
@@ -207,7 +216,10 @@ class HinenOpenFlowHandler(OptionsFlow):
                 data=user_input,
             )
 
-        hinen_open = HinenOpen(self.config_entry.data[CONF_TOKEN][HOST])
+        hinen_open = HinenOpen(
+            self.config_entry.data[CONF_TOKEN][HOST],
+            session=async_get_clientsession(self.hass),
+        )
         await hinen_open.set_user_authentication(
             self.config_entry.data[CONF_TOKEN][CONF_ACCESS_TOKEN],
             self.config_entry.data[CONF_TOKEN]["refresh_token"],

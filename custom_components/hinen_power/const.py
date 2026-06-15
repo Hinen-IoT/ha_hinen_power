@@ -12,6 +12,21 @@ HOST = "host"
 
 LOGGER = logging.getLogger(__package__)
 
+# Hinen developer portal language codes
+HINEN_LANGUAGE_ZH_CN = "zh_CN"
+HINEN_LANGUAGE_EN_US = "en_US"
+DEFAULT_HINEN_LANGUAGE = HINEN_LANGUAGE_EN_US
+
+# HA language tag (BCP 47) -> Hinen developer portal language code
+HA_LANGUAGE_TO_HINEN = {
+    "zh-Hans": HINEN_LANGUAGE_ZH_CN,
+    "zh-Hant": HINEN_LANGUAGE_ZH_CN,
+    "zh": HINEN_LANGUAGE_ZH_CN,
+}
+
+# Feedback page URL template
+FEEDBACK_URL_TEMPLATE = "https://developer.celinksmart.com/{}/feedback"
+
 ATTR_REGION_CODE = "region_code"
 ATTR_CLIENT_SECRET = "client_secret"
 ATTR_STATUS = "status"
@@ -120,4 +135,4 @@ ATTR_AUTH_LANGUAGE = "page_language"
 ATTR_REDIRECTION_URL = "redirection_url"
 SUPPORTED_LANGUAGES = [("en_US", "English"), ("zh_CN", "简体中文")]
 
-CLIENT_ID = "6liMmES7"
+

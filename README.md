@@ -101,10 +101,14 @@ To use this integration, you need to have a corresponding Hinen Solar account an
 
 # Configuration
 
-1. Add the integration and configure the redirect URL on the configuration page (Note: The redirect URL is the address of your Home Assistant instance, which should not end with "/").
-2. Jump to the Hinen oauth2 authentication page
-3. Select your region and log in to your Hinen Solar account
-4. If everything is normal, you will be redirected to your Home Assistant instance for authorization and a list of all available devices under your account will be displayed.
+1. Apply for your Client ID and Client Secret on the [Hinen Developer Portal](https://developer.celinksmart.com/en_US/feedback).
+2. Add the integration and fill in the configuration form:
+   - **Certification page language**: The language of the Hinen authentication page.
+   - **Client ID**: The Client ID you obtained from the developer portal.
+   - **Client Secret**: The Client Secret you obtained from the developer portal.
+   - **Redirect address**: The address of your Home Assistant instance (do not end with "/").
+3. You will be redirected to the Hinen OAuth2 authentication page. Select your region and log in to your Hinen Solar account.
+4. If everything goes well, you will be redirected back to your Home Assistant instance for authorization, and a list of all available devices under your account will be displayed. Select the device(s) you want to add.
 
 # Custom Cards
 Optional: Simply configure custom card examples based on Hinen's related entities to achieve better control of Hinen devices
@@ -127,7 +131,7 @@ title: VPP Company
 state_color: true
 visibility:
   - condition: state
-    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    entity: sensor.{{device_name}}_vpp_company
     state: none
 ```
 
@@ -143,7 +147,7 @@ title: Working Mode Settings
 state_color: true
 visibility:
   - condition: state
-    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    entity: sensor.{{device_name}}_vpp_company
     state: none
 ```
 
@@ -261,6 +265,6 @@ cards:
       state_color: true
 visibility:
   - condition: state
-    entity: sensor.single_phase_hybrid_inverter_2_way_pv_vpp_company
+    entity: sensor.{{device_name}}_vpp_company
     state: none
 ```

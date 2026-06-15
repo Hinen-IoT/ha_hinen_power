@@ -10,7 +10,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ID, ATTR_SERIAL_NUMBER
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .auth_config import AsyncConfigEntryAuth
 from .const import (
@@ -47,40 +47,43 @@ class HinenDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         hinen_open = await self._auth.get_resource()
         res = {}
         device_ids = self.config_entry.options[CONF_DEVICES]
-        try:
-            async for device_detail in hinen_open.get_device_details(device_ids):
-                res[device_detail.id] = {
-                    ATTR_ID: device_detail.id,
-                    ATTR_SERIAL_NUMBER: device_detail.serial_number,
-                    ATTR_DEVICE_NAME: device_detail.device_name,
-                    ATTR_STATUS: device_detail.status,
-                    ATTR_ALERT_STATUS: device_detail.alert_status,
-                    **{
-                        key: {
-                            "value": next(
-                                (
-                                    prop.value
-                                    for prop in device_detail.properties
-                                    if prop.identifier == identifier
+        for device_id in device_ids:
+            try:
+                async for device_detail in hinen_open.get_device_detail(device_id):
+                    res[device_detail.id] = {
+                        ATTR_ID: device_detail.id,
+                        ATTR_SERIAL_NUMBER: device_detail.serial_number,
+                        ATTR_DEVICE_NAME: device_detail.device_name,
+                        ATTR_STATUS: device_detail.status,
+                        ATTR_ALERT_STATUS: device_detail.alert_status,
+                        **{
+                            key: {
+                                "value": next(
+                                    (
+                                        prop.value
+                                        for prop in device_detail.properties
+                                        if prop.identifier == identifier
+                                    ),
+                                    None,
                                 ),
-                                None,
-                            ),
-                            "specs": next(
-                                (
-                                    prop.specs
-                                    for prop in device_detail.properties
-                                    if prop.identifier == identifier
-                                ),
-                                None,
-                            )
-                        }
-                        for key, identifier in PROPERTIES.items()
-                    },
-                }
-        except UnauthorizedError as err:
-            raise ConfigEntryAuthFailed from err
-        except HinenBackendError as err:
-            raise UpdateFailed("Couldn't connect to Hinen") from err
+                                "specs": next(
+                                    (
+                                        prop.specs
+                                        for prop in device_detail.properties
+                                        if prop.identifier == identifier
+                                    ),
+                                    None,
+                                )
+                            }
+                            for key, identifier in PROPERTIES.items()
+                        },
+                    }
+            except UnauthorizedError as err:
+                raise ConfigEntryAuthFailed from err
+            except HinenBackendError as err:
+                LOGGER.warning(
+                    "Failed to fetch details for device %s: %s", device_id, err
+                )
         return res
 
     async def async_update_data(self) -> dict[str, Any]:
