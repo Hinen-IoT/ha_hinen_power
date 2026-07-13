@@ -1,10 +1,13 @@
-"""Support for hello auth."""
+"""Support for Hinen Power integration."""
 
 from __future__ import annotations
+
+import logging
 
 from aiohttp.client_exceptions import ClientError, ClientResponseError
 
 from homeassistant.components.application_credentials import ClientCredential
+from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
@@ -21,8 +24,11 @@ from . import application_credentials
 from .auth_config import AsyncConfigEntryAuth
 from .const import AUTH, COORDINATOR, DOMAIN
 from .coordinator import HinenDataUpdateCoordinator
+from .services import async_register_services
 
-PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR, Platform.SWITCH, Platform.TIME]
+_LOGGER = logging.getLogger(__name__)
+
+PLATFORMS = [Platform.NUMBER, Platform.SELECT, Platform.SENSOR]
 
 
 async def async_setup_entry(
@@ -66,6 +72,19 @@ async def async_setup_entry(
     }
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
+    # Register services (only once across the whole hass instance)
+    await async_register_services(hass)
+
+    # Register static path (for www/ custom cards)
+    www_path = hass.config.path("custom_components", DOMAIN, "www")
+    await hass.http.async_register_static_paths([
+        StaticPathConfig(
+            url_path=f"/{DOMAIN}/static",
+            path=www_path,
+            cache_headers=False,
+        )
+    ])
 
     return True
 

@@ -12,6 +12,11 @@ HOST = "host"
 
 LOGGER = logging.getLogger(__package__)
 
+SERVICE_SET_PERIOD_TIMES2 = "set_period_times2"
+SERVICE_SET_POWER_PROTECTION_MODE_TIME_PERIOD = "set_power_protection_mode_time_period"
+
+POWER_PROTECTION_HELPER_SENSOR_KEY = "power_protection_mode_time_period_config"
+
 # Hinen developer portal language codes
 HINEN_LANGUAGE_ZH_CN = "zh_CN"
 HINEN_LANGUAGE_EN_US = "en_US"
@@ -61,6 +66,7 @@ GRID_FIRST_STOP_SOC = "grid_first_stop_soc"
 CHARGE_POWER_SET = "charge_power_set"
 DISCHARGE_POWER_SET = "discharge_power_set"
 CD_PERIOD_TIMES2 = "cd_period_times2"
+CD_PERIOD_WEEK_SUPPORT = "cd_period_week_support"
 POWER_PROTECTION_MODE_TIME_PERIOD = "power_protection_mode_time_period"
 
 # CD Period Times 2 nested property keys (API field names)
@@ -69,6 +75,7 @@ PERIOD_TIME_START = "periodTimeStart"
 PERIOD_TIME_RATE = "periodTimeRate"
 PERIOD_TIME_END = "periodTimeEnd"
 PERIOD_TIME_STOP_SOC = "periodTimeStopSoc"
+PERIOD_WEEK_ENABLE = "PeriodWeekEnable"
 
 # Power Protection Mode Time Period nested property keys (API field names)
 PERIOD_SOC = "PeriodSOC"
@@ -112,6 +119,7 @@ PROPERTIES = {
     CHARGE_STOP_SOC: "ChargeStopSOC",
     GRID_FIRST_STOP_SOC: "GridFirstStopSOC",
     CD_PERIOD_TIMES2: "CDPeriodTimes2",
+    CD_PERIOD_WEEK_SUPPORT: "CDPeriodWeekSupport",
     POWER_PROTECTION_MODE_TIME_PERIOD: "PowerProtectionModeTimePeriod",
     WORK_MODE_SETTING: "WorkModeSetting",
     CUMULATIVE_CONSUMPTION: "CumulativeConsumption",

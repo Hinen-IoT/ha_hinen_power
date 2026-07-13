@@ -43,9 +43,11 @@ git checkout v1.0.0
 下载并将 `custom_components/hinen_power` 文件夹复制到 Home Assistant 的 `config/custom_components` 文件夹下。
 
 # 实体
+
 Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添加的每一个设备，会创建以下实体：
 
 - 传感器
+
   - 告警状态
   - 设备状态
   - 累计用电量
@@ -60,39 +62,16 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
   - 电网功率
   - 电池剩余容量
   - VPP公司
-
+  - 时段配置（用于自定义 Lovelace 卡片的辅助传感器）
+  - 保电模式配置（用于自定义 Lovelace 卡片的辅助传感器）
 - 选择器
-  - 工作模式（状态选项：不启用、自发自用、电池优先、并网优先、时间段控制、保电模式）
 
+  - 工作模式（状态选项：不启用、自发自用、电池优先、并网优先、时间段控制、保电模式）
 - 数字
+
   - 电池放电最小SOC
   - 电池强充截止SOC
   - 电池强放截止SOC
-  - 时段相关控制（6个：时段1，时段2，时段3，时段4，时段5，时段6，若无设置则默认值都是0）
-    - 时段1起始时间
-    - 时段1充放电功率百分比
-    - 时段1结束时间
-    - 时段1截止SOC
-  - 保电模式时段配置（6个：时段1，时段2，时段3，时段4，时段5，时段6，若无设置则默认值都是0）
-    - 时段1SOC
-    - 时段1起始时间
-    - 时段1功率
-  
-- 开关
-  - 时间段控制（时段1-6）
-    - 时段1使能
-    - 时段2使能
-    - 时段3使能
-    - 时段4使能
-    - 时段5使能
-    - 时段6使能
-  - 保电模式交流使能（时段1-6）
-    - 时段1交流使能
-    - 时段2交流使能
-    - 时段3交流使能
-    - 时段4交流使能
-    - 时段5交流使能
-    - 时段6交流使能
 
 # 前提条件
 
@@ -109,23 +88,72 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
 3. 页面将跳转到 Hinen OAuth2 认证页面，选择您的地区并登录您的 Hinen Solar 账号。
 4. 如果一切正常，会跳转回您的 Home Assistant 实例进行授权，并显示账号下的所有可选设备。请选择您要添加的设备。
 
-# 自定义卡片
-可选：根据hinen的相关实体简单配置自定义卡片示例，以达到更好对Hinen设备控制的效果
+# 自定义 Lovelace 卡片
 
-设置自定义卡片，需要将卡片配置中的**设备标识**替换成**自己的设备标识**，步骤如下
-1. 进入"**首页>开发者工具>模板**"，将以下yaml配置放到模板中。
-2. 找到任意一个实体，查看实体标识**获取对应设备标识**。例如：设备状态实体（sensor.6kw_0048_status），设备标识为“6kw_0048” 
-3. 将**device_name**变量值更新为自己设备标识
-4. 复制生成的yaml配置
-5. 进入"**首页>概览>编辑>添加卡片>手动编辑**"，将复制的yaml配置放到模板中点击完成即可
+集成包含了用于高级时段配置的自定义 Lovelace 卡片。这些卡片为用户提供了友好的界面来管理充放电时段和保电模式设置。
+
+## 安装
+
+安装集成后，您需要在 Lovelace 中注册卡片资源：
+
+1. 进入 **设置 → 仪表板**
+2. 点击右上角的三个点菜单
+3. 选择 **资源**
+4. 点击 **添加资源**
+5. 添加以下资源：
+
+   **充放电时段卡片：**
+
+   ```
+   URL: /hinen_power/static/hinen-period-card.js
+   类型: JavaScript 模块
+   ```
+
+   **保电模式卡片：**
+
+   ```
+   URL: /hinen_power/static/hinen-power-protection-card.js
+   类型: JavaScript 模块
+   ```
+6. 点击 **创建**
+
+## 卡片配置
+
+设置自定义卡片，需要将卡片配置中的**设备标识**替换成**自己的设备标识**，步骤如下：
+
+1. 进入"**首页 > 开发者工具 > 模板**"，将以下 YAML 配置放到模板中。
+2. 找到任意一个实体，查看实体标识**获取对应设备标识**。例如：设备状态实体（`sensor.6kw_0048_status`），设备标识为 `6kw_0048`。
+3. 将 **device_name** 变量值更新为自己的设备标识。
+4. 复制生成的 YAML 配置。
+5. 进入"**首页 > 概览 > 编辑 > 添加卡片 > 手动编辑**"，将复制的 YAML 配置放到模板中点击完成即可。
+
+### 充放电时段卡片
+
+此卡片允许您配置最多 20 个时段，包含：
+
+- 每个时段的启用/禁用
+- 星期选择（如果设备支持）
+- 开始/结束时间
+- 功率速率
+- 截止 SOC
+
+### 保电模式卡片
+
+此卡片允许您配置最多 6 个保电模式时段，包含：
+
+- 每个时段的 AC 使能
+- 开始时间
+- SOC
+- 功率
 
 ## VPP 公司
+
 ```yaml
-{% set device_name = "你的设备标识" %}
+{% set device_name = "设备标识" %}
 type: entities
 entities:
   - entity: sensor.{{device_name}}_vpp_company
-title: VPP公司
+title: VPP 公司
 state_color: true
 visibility:
   - condition: state
@@ -133,9 +161,12 @@ visibility:
     state: none
 ```
 
-## 设备工作模式设置（注意：VPP 公司存在时，将会不可见）
+## 设备工作模式设置
+
+此卡片将在 VPP 公司存在时隐藏。
+
 ```yaml
-{% set device_name = "你的设备标识" %}
+{% set device_name = "设备标识" %}
 type: entities
 entities:
   - entity: select.{{device_name}}_work_mode
@@ -150,8 +181,7 @@ visibility:
 ## 设备信息
 
 ```yaml
-{% set device_name = "你的设备标识" %}
-
+{% set device_name = "设备标识" %}
 type: entities
 entities:
   - entity: sensor.{{device_name}}_status
@@ -161,104 +191,73 @@ entities:
   - entity: sensor.{{device_name}}_battery_power
   - entity: sensor.{{device_name}}_grid_total_power
   - entity: sensor.{{device_name}}_total_battery_soc
-title: 工作模式设置
+title: 设备信息
 state_color: true
 ```
-## 根据工作模式显示各个模式下关联的属性（注意：VPP 公司存在时，将会不可见）
+
+## 根据工作模式显示各个模式下关联的属性
+
+此卡片将在 VPP 公司存在时隐藏。
 
 ```yaml
-{% set device_name = "你的设备标识" %}
-
+{% set device_name = "设备标识" %}
 type: vertical-stack
 cards:
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: self_consumption
     card:
       type: entities
-      title: 自发自用
+      title: 自发自用模式
       entities:
-        - entity: number.{{ device_name }}_load_first_stop_soc
-          name: 电池放电最小SOC
-          secondary_info: last-updated
-  
+        - entity: number.{{device_name}}_load_first_stop_soc
+          name: 负载优先截止 SOC
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: battery_priority
     card:
       type: entities
-      title: 电池优先
+      title: 电池优先模式
       entities:
-        - entity: number.{{ device_name }}_charge_stop_soc
-          secondary_info: last-updated
-          name: 电池强充截止SOC
-  
+        - entity: number.{{device_name}}_charge_stop_soc
+          name: 充电截止 SOC
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: grid_priority
     card:
       type: entities
-      title: 并网优先
+      title: 电网优先模式
       entities:
-        - entity: number.{{ device_name }}_grid_first_stop_soc
-          secondary_info: last-updated
-          name: 电池强放截止SOC
-  
+        - entity: number.{{device_name}}_grid_first_stop_soc
+          name: 电网优先截止 SOC
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: time_period
     card:
-      type: entities
+      type: custom:hinen-period-card
+      entity: sensor.{{device_name}}_period_configuration
       title: ⚡充放电优先时段配置
-      entities:
-        {% for period in range(1, 7) %}
-        - type: section
-          label: 时段{{ period }}
-        - entity: switch.{{ device_name }}_charge_discharge_period_{{ period }}_enable
-          name: 启用
-        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_rate
-          name: 速率
-        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_stop_soc
-          name: 截止SOC
-        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_start_time
-          name: 开始时间
-        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_end_time
-          name: 结束时间
-        {% endfor %}
-      show_header_toggle: false
-      state_color: true
-  
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: power_keeping
     card:
-      type: entities
+      type: custom:hinen-power-protection-card
+      entity: sensor.{{device_name}}_power_protection_mode_configuration
       title: 🔋保电模式配置
-      entities:
-        {% for period in range(1, 7) %}
-        - type: section
-          label: 时段{{ period }}
-        - entity: switch.{{ device_name }}_power_protection_period_{{ period }}_ac_enable
-          name: 启用
-        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_power
-          name: 功率
-        - entity: time.{{ device_name }}_power_protection_period_{{ period }}_start_time
-          name: 开始时间
-        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_soc
-          name: SOC
-        {% endfor %}
-      show_header_toggle: false
-      state_color: true
 visibility:
   - condition: state
     entity: sensor.{{device_name}}_vpp_company

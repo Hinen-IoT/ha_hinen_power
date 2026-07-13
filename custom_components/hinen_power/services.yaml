@@ -1,0 +1,59 @@
+set_period_times2:
+  name: Batch set charge/discharge period configuration
+  description: Send CDPeriodTimes2 array at once (1-20 periods, pass as needed)
+  fields:
+    device_id:
+      required: true
+      description: Target device ID (auto-retrieved from entity in card configuration)
+      example: "6kw_0048"
+      selector:
+        text: {}
+    periods:
+      required: true
+      description: |
+        CDPeriodTimes2 array, length 1-20. Each period contains:
+        - periodEnable: 0 or 1 (enable switch)
+        - PeriodWeekEnable: "0,1,0,0,0,1,1" (Monday to Sunday, 7 comma-separated values)
+        - periodTimeStart: 0-1440 minutes (start time)
+        - periodTimeEnd: 0-1440 minutes (end time)
+        - periodTimeRate: Power percentage, range defined by device specs (positive for charging, negative for discharging)
+        - periodTimeStopSoc: Stop SOC, range defined by device specs
+      example: |
+        [
+          {
+            "periodEnable": 1,
+            "PeriodWeekEnable": "0,1,1,1,1,1,0",
+            "periodTimeStart": 480,
+            "periodTimeEnd": 1020,
+            "periodTimeRate": 100,
+            "periodTimeStopSoc": 80
+          }
+        ]
+
+set_power_protection_mode_time_period:
+  name: Batch set power protection mode period configuration
+  description: Send PowerProtectionModeTimePeriod array at once (1-20 periods, pass as needed)
+  fields:
+    device_id:
+      required: true
+      description: Target device ID (auto-retrieved from entity in card configuration)
+      example: "6kw_0048"
+      selector:
+        text: {}
+    periods:
+      required: true
+      description: |
+        PowerProtectionModeTimePeriod array, length 1-20. Each period contains:
+        - PeriodACEnable: 0 or 1 (AC enable switch)
+        - PeriodStartTime: 0-1440 minutes (start time)
+        - PeriodSOC: Target SOC, range defined by device specs
+        - PeriodPower: Power in watts, range defined by device specs
+      example: |
+        [
+          {
+            "PeriodACEnable": 1,
+            "PeriodStartTime": 480,
+            "PeriodSOC": 80,
+            "PeriodPower": 5000
+          }
+        ]

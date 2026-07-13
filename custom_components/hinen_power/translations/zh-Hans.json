@@ -110,62 +110,12 @@
           "gbb_optimizer": "Gbb Optimizer",
           "test": "Test"
         }
-      }
-    },
-    "time": {
-      "cd_period_times_1_start_time": {
-        "name": "充电/放电周期1起始时间"
       },
-      "cd_period_times_1_end_time": {
-        "name": "充电/放电周期1结束时间"
+      "cd_period_times2_config": {
+        "name": "时段配置"
       },
-      "cd_period_times_2_start_time": {
-        "name": "充电/放电周期2起始时间"
-      },
-      "cd_period_times_2_end_time": {
-        "name": "充电/放电周期2结束时间"
-      },
-      "cd_period_times_3_start_time": {
-        "name": "充电/放电周期3起始时间"
-      },
-      "cd_period_times_3_end_time": {
-        "name": "充电/放电周期3结束时间"
-      },
-      "cd_period_times_4_start_time": {
-        "name": "充电/放电周期4起始时间"
-      },
-      "cd_period_times_4_end_time": {
-        "name": "充电/放电周期4结束时间"
-      },
-      "cd_period_times_5_start_time": {
-        "name": "充电/放电周期5起始时间"
-      },
-      "cd_period_times_5_end_time": {
-        "name": "充电/放电周期5结束时间"
-      },
-      "cd_period_times_6_start_time": {
-        "name": "充电/放电周期6起始时间"
-      },
-      "cd_period_times_6_end_time": {
-        "name": "充电/放电周期6结束时间"
-      },
-      "power_protection_period_1_start_time": {
-        "name": "保电模式时段1起始时间"
-      },
-      "power_protection_period_2_start_time": {
-        "name": "保电模式时段2起始时间"
-      },
-      "power_protection_period_3_start_time": {
-        "name": "保电模式时段3起始时间"
-      },
-      "power_protection_period_4_start_time": {
-        "name": "保电模式时段4起始时间"
-      },
-      "power_protection_period_5_start_time": {
-        "name": "保电模式时段5起始时间"
-      },
-      "power_protection_period_6_start_time": {
-        "name": "保电模式时段6起始时间"
+      "power_protection_mode_time_period_config": {
+        "name": "保电模式配置"
       }
     },
     "select": {
@@ -190,146 +140,48 @@
       },
       "grid_first_stop_soc": {
         "name": "电池强放截止SOC"
-      },
-      "cd_period_times_1_rate": {
-        "name": "充电/放电周期1充放电功率百分比"
-      },
-      "cd_period_times_1_stop_soc": {
-        "name": "充电/放电周期1截止SOC"
-      },
-      "cd_period_times_2_rate": {
-        "name": "充电/放电周期2充放电功率百分比"
-      },
-      "cd_period_times_2_stop_soc": {
-        "name": "充电/放电周期2截止SOC"
-      },
-      "cd_period_times_3_rate": {
-        "name": "充电/放电周期3充放电功率百分比"
-      },
-      "cd_period_times_3_stop_soc": {
-        "name": "充电/放电周期3截止SOC"
-      },
-      "cd_period_times_4_rate": {
-        "name": "充电/放电周期4充放电功率百分比"
-      },
-      "cd_period_times_4_stop_soc": {
-        "name": "充电/放电周期4截止SOC"
-      },
-      "cd_period_times_5_rate": {
-        "name": "充电/放电周期5充放电功率百分比"
-      },
-      "cd_period_times_5_stop_soc": {
-        "name": "充电/放电周期5截止SOC"
-      },
-      "cd_period_times_6_rate": {
-        "name": "充电/放电周期6充放电功率百分比"
-      },
-      "cd_period_times_6_stop_soc": {
-        "name": "充电/放电周期6截止SOC"
-      },
-      "power_protection_period_1_soc": {
-        "name": "保电模式时段1SOC"
-      },
-      "power_protection_period_1_start_time": {
-        "name": "保电模式时段1起始时间"
-      },
-      "power_protection_period_1_power": {
-        "name": "保电模式时段1功率"
-      },
-      "power_protection_period_2_soc": {
-        "name": "保电模式时段2SOC"
-      },
-      "power_protection_period_2_start_time": {
-        "name": "保电模式时段2起始时间"
-      },
-      "power_protection_period_2_power": {
-        "name": "保电模式时段2功率"
-      },
-      "power_protection_period_3_soc": {
-        "name": "保电模式时段3SOC"
-      },
-      "power_protection_period_3_start_time": {
-        "name": "保电模式时段3起始时间"
-      },
-      "power_protection_period_3_power": {
-        "name": "保电模式时段3功率"
-      },
-      "power_protection_period_4_soc": {
-        "name": "保电模式时段4SOC"
-      },
-      "power_protection_period_4_start_time": {
-        "name": "保电模式时段4起始时间"
-      },
-      "power_protection_period_4_power": {
-        "name": "保电模式时段4功率"
-      },
-      "power_protection_period_5_soc": {
-        "name": "保电模式时段5SOC"
-      },
-      "power_protection_period_5_start_time": {
-        "name": "保电模式时段5起始时间"
-      },
-      "power_protection_period_5_power": {
-        "name": "保电模式时段5功率"
-      },
-      "power_protection_period_6_soc": {
-        "name": "保电模式时段6SOC"
-      },
-      "power_protection_period_6_start_time": {
-        "name": "保电模式时段6起始时间"
-      },
-      "power_protection_period_6_power": {
-        "name": "保电模式时段6功率"
-      }
-    },
-    "switch": {
-      "cd_period_times_1_enable": {
-        "name": "充电/放电周期1使能"
-      },
-      "cd_period_times_2_enable": {
-        "name": "充电/放电周期2使能"
-      },
-      "cd_period_times_3_enable": {
-        "name": "充电/放电周期3使能"
-      },
-      "cd_period_times_4_enable": {
-        "name": "充电/放电周期4使能"
-      },
-      "cd_period_times_5_enable": {
-        "name": "充电/放电周期5使能"
-      },
-      "cd_period_times_6_enable": {
-        "name": "充电/放电周期6使能"
-      },
-      "power_protection_period_1_ac_enable": {
-        "name": "保电模式时段1AC使能"
-      },
-      "power_protection_period_2_ac_enable": {
-        "name": "保电模式时段2AC使能"
-      },
-      "power_protection_period_3_ac_enable": {
-        "name": "保电模式时段3AC使能"
-      },
-      "power_protection_period_4_ac_enable": {
-        "name": "保电模式时段4AC使能"
-      },
-      "power_protection_period_5_ac_enable": {
-        "name": "保电模式时段5AC使能"
-      },
-      "power_protection_period_6_ac_enable": {
-        "name": "保电模式时段6AC使能"
       }
     }
   },
   "exceptions": {
-    "start_time_after_end_time": {
-      "message": "周期{period}的起始时间({start_time})必须早于结束时间({end_time})"
-    },
-    "end_time_before_start_time": {
-      "message": "周期{period}的结束时间({end_time})必须晚于起始时间({start_time})"
+    "period_start_after_end": {
+      "message": "周期{period_idx}的开始时间({start})必须在结束时间({end})之前"
     },
     "period_overlap": {
-      "message": "周期{period}({period_start} - {period_end})与周期{conflict_period}({conflict_start} - {conflict_end})时间重叠"
+      "message": "周期{period1}({start1}-{end1})与周期{period2}({start2}-{end2})在{weekday}存在时间冲突"
+    },
+    "device_not_found": {
+      "message": "设备 {device_id} 未在本集成中注册"
+    },
+    "set_period_failed": {
+      "message": "设置时间段失败: {error}"
+    },
+    "set_power_protection_failed": {
+      "message": "设置保电模式时间段失败: {error}"
+    },
+    "invalid_periods": {
+      "message": "时间段数据格式无效"
+    },
+    "period_specs_unavailable": {
+      "message": "设备未提供字段 {field} 的规格信息，无法校验范围"
+    },
+    "period_rate_out_of_range": {
+      "message": "周期{period_idx}的功率百分比值({rate})必须在{rate_min}到{rate_max}之间"
+    },
+    "period_soc_out_of_range": {
+      "message": "周期{period_idx}的截止SOC值({soc})必须在{soc_min}到{soc_max}之间"
+    },
+    "power_protection_specs_unavailable": {
+      "message": "设备未提供字段 {field} 的规格信息，无法校验范围"
+    },
+    "power_protection_soc_out_of_range": {
+      "message": "周期{period_idx}的SOC值({soc})必须在{soc_min}到{soc_max}之间"
+    },
+    "power_protection_power_out_of_range": {
+      "message": "周期{period_idx}的功率值({power})必须在{power_min}到{power_max}之间"
+    },
+    "invalid_week_enable": {
+      "message": "PeriodWeekEnable必须为逗号分隔的0/1值（如\"1,0,1,1,1,0,0\"），实际值: {value}"
     }
   },
   "options": {

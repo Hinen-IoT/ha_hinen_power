@@ -50,42 +50,6 @@
     },
     "entity": {
         "number": {
-            "cd_period_times_1_rate": {
-                "name": "Charge/Discharge Period 1 Rate"
-            },
-            "cd_period_times_1_stop_soc": {
-                "name": "Charge/Discharge Period 1 Stop SOC"
-            },
-            "cd_period_times_2_rate": {
-                "name": "Charge/Discharge Period 2 Rate"
-            },
-            "cd_period_times_2_stop_soc": {
-                "name": "Charge/Discharge Period 2 Stop SOC"
-            },
-            "cd_period_times_3_rate": {
-                "name": "Charge/Discharge Period 3 Rate"
-            },
-            "cd_period_times_3_stop_soc": {
-                "name": "Charge/Discharge Period 3 Stop SOC"
-            },
-            "cd_period_times_4_rate": {
-                "name": "Charge/Discharge Period 4 Rate"
-            },
-            "cd_period_times_4_stop_soc": {
-                "name": "Charge/Discharge Period 4 Stop SOC"
-            },
-            "cd_period_times_5_rate": {
-                "name": "Charge/Discharge Period 5 Rate"
-            },
-            "cd_period_times_5_stop_soc": {
-                "name": "Charge/Discharge Period 5 Stop SOC"
-            },
-            "cd_period_times_6_rate": {
-                "name": "Charge/Discharge Period 6 Rate"
-            },
-            "cd_period_times_6_stop_soc": {
-                "name": "Charge/Discharge Period 6 Stop SOC"
-            },
             "charge_stop_soc": {
                 "name": "Charge Stop SOC"
             },
@@ -94,60 +58,6 @@
             },
             "load_first_stop_soc": {
                 "name": "Load first stop SOC"
-            },
-            "power_protection_period_1_soc": {
-                "name": "Power Protection Period 1 SOC"
-            },
-            "power_protection_period_1_start_time": {
-                "name": "Power Protection Period 1 Start Time"
-            },
-            "power_protection_period_1_power": {
-                "name": "Power Protection Period 1 Power"
-            },
-            "power_protection_period_2_soc": {
-                "name": "Power Protection Period 2 SOC"
-            },
-            "power_protection_period_2_start_time": {
-                "name": "Power Protection Period 2 Start Time"
-            },
-            "power_protection_period_2_power": {
-                "name": "Power Protection Period 2 Power"
-            },
-            "power_protection_period_3_soc": {
-                "name": "Power Protection Period 3 SOC"
-            },
-            "power_protection_period_3_start_time": {
-                "name": "Power Protection Period 3 Start Time"
-            },
-            "power_protection_period_3_power": {
-                "name": "Power Protection Period 3 Power"
-            },
-            "power_protection_period_4_soc": {
-                "name": "Power Protection Period 4 SOC"
-            },
-            "power_protection_period_4_start_time": {
-                "name": "Power Protection Period 4 Start Time"
-            },
-            "power_protection_period_4_power": {
-                "name": "Power Protection Period 4 Power"
-            },
-            "power_protection_period_5_soc": {
-                "name": "Power Protection Period 5 SOC"
-            },
-            "power_protection_period_5_start_time": {
-                "name": "Power Protection Period 5 Start Time"
-            },
-            "power_protection_period_5_power": {
-                "name": "Power Protection Period 5 Power"
-            },
-            "power_protection_period_6_soc": {
-                "name": "Power Protection Period 6 SOC"
-            },
-            "power_protection_period_6_start_time": {
-                "name": "Power Protection Period 6 Start Time"
-            },
-            "power_protection_period_6_power": {
-                "name": "Power Protection Period 6 Power"
             }
         },
         "select": {
@@ -161,62 +71,6 @@
                     "self_consumption": "Self Consumption",
                     "time_period": "Time Period"
                 }
-            }
-        },
-        "time": {
-            "cd_period_times_1_start_time": {
-                "name": "Charge/Discharge Period 1 Start Time"
-            },
-            "cd_period_times_1_end_time": {
-                "name": "Charge/Discharge Period 1 End Time"
-            },
-            "cd_period_times_2_start_time": {
-                "name": "Charge/Discharge Period 2 Start Time"
-            },
-            "cd_period_times_2_end_time": {
-                "name": "Charge/Discharge Period 2 End Time"
-            },
-            "cd_period_times_3_start_time": {
-                "name": "Charge/Discharge Period 3 Start Time"
-            },
-            "cd_period_times_3_end_time": {
-                "name": "Charge/Discharge Period 3 End Time"
-            },
-            "cd_period_times_4_start_time": {
-                "name": "Charge/Discharge Period 4 Start Time"
-            },
-            "cd_period_times_4_end_time": {
-                "name": "Charge/Discharge Period 4 End Time"
-            },
-            "cd_period_times_5_start_time": {
-                "name": "Charge/Discharge Period 5 Start Time"
-            },
-            "cd_period_times_5_end_time": {
-                "name": "Charge/Discharge Period 5 End Time"
-            },
-            "cd_period_times_6_start_time": {
-                "name": "Charge/Discharge Period 6 Start Time"
-            },
-            "cd_period_times_6_end_time": {
-                "name": "Charge/Discharge Period 6 End Time"
-            },
-            "power_protection_period_1_start_time": {
-                "name": "Power Protection Period 1 Start Time"
-            },
-            "power_protection_period_2_start_time": {
-                "name": "Power Protection Period 2 Start Time"
-            },
-            "power_protection_period_3_start_time": {
-                "name": "Power Protection Period 3 Start Time"
-            },
-            "power_protection_period_4_start_time": {
-                "name": "Power Protection Period 4 Start Time"
-            },
-            "power_protection_period_5_start_time": {
-                "name": "Power Protection Period 5 Start Time"
-            },
-            "power_protection_period_6_start_time": {
-                "name": "Power Protection Period 6 Start Time"
             }
         },
         "sensor": {
@@ -280,56 +134,54 @@
                     "gbb_optimizer": "Gbb Optimizer",
                     "test": "Test"
                 }
-            }
-        },
-        "switch": {
-            "cd_period_times_1_enable": {
-                "name": "Charge/Discharge Period 1 Enable"
             },
-            "cd_period_times_2_enable": {
-                "name": "Charge/Discharge Period 2 Enable"
+            "cd_period_times2_config": {
+                "name": "Period Configuration"
             },
-            "cd_period_times_3_enable": {
-                "name": "Charge/Discharge Period 3 Enable"
-            },
-            "cd_period_times_4_enable": {
-                "name": "Charge/Discharge Period 4 Enable"
-            },
-            "cd_period_times_5_enable": {
-                "name": "Charge/Discharge Period 5 Enable"
-            },
-            "cd_period_times_6_enable": {
-                "name": "Charge/Discharge Period 6 Enable"
-            },
-            "power_protection_period_1_ac_enable": {
-                "name": "Power Protection Period 1 AC Enable"
-            },
-            "power_protection_period_2_ac_enable": {
-                "name": "Power Protection Period 2 AC Enable"
-            },
-            "power_protection_period_3_ac_enable": {
-                "name": "Power Protection Period 3 AC Enable"
-            },
-            "power_protection_period_4_ac_enable": {
-                "name": "Power Protection Period 4 AC Enable"
-            },
-            "power_protection_period_5_ac_enable": {
-                "name": "Power Protection Period 5 AC Enable"
-            },
-            "power_protection_period_6_ac_enable": {
-                "name": "Power Protection Period 6 AC Enable"
+            "power_protection_mode_time_period_config": {
+                "name": "Power Protection Mode Configuration"
             }
         }
     },
     "exceptions": {
-        "start_time_equal_or_after_end_time": {
-            "message": "Start time ({start_time}) must be before end time ({end_time}) for Period {period}"
-        },
-        "end_time_equal_or_before_start_time": {
-            "message": "End time ({end_time}) must be after start time ({start_time}) for Period {period}"
+        "period_start_after_end": {
+            "message": "Period {period_idx} start time ({start}) must be before end time ({end})"
         },
         "period_overlap": {
-            "message": "Period {period} ({period_start} - {period_end}) overlaps with Period {conflict_period} ({conflict_start} - {conflict_end})"
+            "message": "Period {period1} ({start1}-{end1}) conflicts with period {period2} ({start2}-{end2}) on {weekday}"
+        },
+        "device_not_found": {
+            "message": "Device {device_id} not registered in this integration"
+        },
+        "set_period_failed": {
+            "message": "Failed to set period config: {error}"
+        },
+        "set_power_protection_failed": {
+            "message": "Failed to set power protection mode config: {error}"
+        },
+        "invalid_periods": {
+            "message": "Invalid periods data format"
+        },
+        "period_specs_unavailable": {
+            "message": "Device does not provide specification for field {field}, cannot validate range"
+        },
+        "period_rate_out_of_range": {
+            "message": "Period {period_idx} rate value ({rate}) must be between {rate_min} and {rate_max}"
+        },
+        "period_soc_out_of_range": {
+            "message": "Period {period_idx} SOC value ({soc}) must be between {soc_min} and {soc_max}"
+        },
+        "power_protection_specs_unavailable": {
+            "message": "Device does not provide specification for field {field}, cannot validate range"
+        },
+        "power_protection_soc_out_of_range": {
+            "message": "Period {period_idx} SOC value ({soc}) must be between {soc_min} and {soc_max}"
+        },
+        "power_protection_power_out_of_range": {
+            "message": "Period {period_idx} power value ({power}) must be between {power_min} and {power_max}"
+        },
+        "invalid_week_enable": {
+            "message": "PeriodWeekEnable must be comma-separated 0/1 values (e.g. \"1,0,1,1,1,0,0\"), got {value}"
         }
     },
     "options": {

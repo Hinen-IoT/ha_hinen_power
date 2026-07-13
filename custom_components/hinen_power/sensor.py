@@ -15,7 +15,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import PERCENTAGE, UnitOfEnergy, UnitOfPower
+from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfEnergy, UnitOfPower
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import StateType
@@ -25,6 +25,8 @@ from .const import (
     ATTR_STATUS,
     AUTH,
     BATTERY_POWER,
+    CD_PERIOD_TIMES2,
+    CD_PERIOD_WEEK_SUPPORT,
     COORDINATOR,
     CUMULATIVE_CONSUMPTION,
     CUMULATIVE_ENERGY_PURCHASED,
@@ -33,6 +35,8 @@ from .const import (
     DOMAIN,
     GENERATION_POWER,
     GRID_TOTAL_POWER,
+    POWER_PROTECTION_HELPER_SENSOR_KEY,
+    POWER_PROTECTION_MODE_TIME_PERIOD,
     SOC,
     TOTAL_CHARGING_ENERGY,
     TOTAL_DISCHARGING_ENERGY,
@@ -43,7 +47,7 @@ from .const import (
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
-from .utils import extract_property_value
+from .utils import extract_property_specs, extract_property_value
 
 
 def _is_property_available(device_detail: dict, key: str) -> bool:
@@ -201,6 +205,30 @@ SENSOR_TYPES = [
 ]
 
 
+@dataclass(frozen=True, kw_only=True)
+class HinenPeriodHelperDescription(SensorEntityDescription):
+    """Describes Hinen Period Helper sensor."""
+
+
+PERIOD_HELPER_TYPE = HinenPeriodHelperDescription(
+    key="cd_period_times2_config",
+    translation_key="cd_period_times2_config",
+    entity_category=EntityCategory.DIAGNOSTIC,
+)
+
+
+@dataclass(frozen=True, kw_only=True)
+class HinenPowerProtectionHelperDescription(SensorEntityDescription):
+    """Describes Hinen Power Protection Helper sensor."""
+
+
+POWER_PROTECTION_HELPER_TYPE = HinenPowerProtectionHelperDescription(
+    key=POWER_PROTECTION_HELPER_SENSOR_KEY,
+    translation_key=POWER_PROTECTION_HELPER_SENSOR_KEY,
+    entity_category=EntityCategory.DIAGNOSTIC,
+)
+
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -221,6 +249,22 @@ async def async_setup_entry(
                     HinenSensor(coordinator, hinen_open, sensor_type, device_id)
                 )
 
+        # Helper sensor exposing full CDPeriodTimes2 array
+        if device_data.get(CD_PERIOD_TIMES2) is not None:
+            entities.append(
+                HinenPeriodHelperSensor(
+                    coordinator, hinen_open, PERIOD_HELPER_TYPE, device_id
+                )
+            )
+        
+        # Helper sensor exposing full PowerProtectionModeTimePeriod array
+        if device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD) is not None:
+            entities.append(
+                HinenPowerProtectionHelperSensor(
+                    coordinator, hinen_open, POWER_PROTECTION_HELPER_TYPE, device_id
+                )
+            )
+
     async_add_entities(entities)
 
 
@@ -238,3 +282,65 @@ class HinenSensor(HinenDeviceEntity, SensorEntity):
     def native_value(self) -> StateType:
         """Return the value reported by the sensor."""
         return self.entity_description.value_fn(self.coordinator.data[self._device_id])
+
+
+class HinenPeriodHelperSensor(HinenDeviceEntity, SensorEntity):
+    """Expose CDPeriodTimes2 full array as attributes for custom cards."""
+
+    entity_description: HinenPeriodHelperDescription
+
+    _attr_should_poll = False
+
+    @property
+    def native_value(self) -> str:
+        """Return fixed value."""
+        return "configured"
+
+    @property
+    def extra_state_attributes(self) -> dict:
+        """Expose full CDPeriodTimes2 array."""
+        device_data = self.coordinator.data.get(self._device_id, {})
+        cd_period = device_data.get(CD_PERIOD_TIMES2)
+        periods = extract_property_value(cd_period) or []
+        
+        # Check if device supports week configuration
+        week_support_prop = device_data.get(CD_PERIOD_WEEK_SUPPORT)
+        week_support = 0
+        if week_support_prop:
+            week_support_val = extract_property_value(week_support_prop)
+            if week_support_val is not None:
+                # 如果是布尔值，True=1, False=0；如果是数字，直接用
+                week_support = 1 if week_support_val is True else (int(week_support_val) if str(week_support_val).isdigit() else 0)
+        
+        return {
+            "cd_period_times2": periods,
+            "cd_period_week_support": week_support,
+            "api_device_id": self._device_id,
+            "field_specs": extract_property_specs(cd_period),
+        }
+
+
+class HinenPowerProtectionHelperSensor(HinenDeviceEntity, SensorEntity):
+    """Expose PowerProtectionModeTimePeriod full array as attributes for custom cards."""
+
+    entity_description: HinenPowerProtectionHelperDescription
+
+    _attr_should_poll = False
+
+    @property
+    def native_value(self) -> str:
+        """Return fixed value."""
+        return "configured"
+
+    @property
+    def extra_state_attributes(self) -> dict:
+        """Expose full PowerProtectionModeTimePeriod array."""
+        device_data = self.coordinator.data.get(self._device_id, {})
+        power_protection = device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD)
+        periods = extract_property_value(power_protection) or []
+        
+        return {
+            "power_protection_mode_time_period": periods,
+            "api_device_id": self._device_id,
+            "field_specs": extract_property_specs(power_protection),
+        }

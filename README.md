@@ -44,9 +44,11 @@ Pending integration
 Download and copy the `custom_components/hinen_power` folder to the `config/custom_components` folder of Home Assistant.
 
 # Entities
+
 The Hinen Power integration allows you to connect Hinen devices to Home Assistant. For each device you add, the following entities will be created:
 
 - Sensor
+
   - Alert status
   - Device status
   - Cumulative electricity consumption
@@ -61,39 +63,16 @@ The Hinen Power integration allows you to connect Hinen devices to Home Assistan
   - Grid total power
   - Total Battery SoC
   - VPP Company
-
+  - Period Configuration (helper sensor for custom Lovelace card)
+  - Power Protection Mode Configuration (helper sensor for custom Lovelace card)
 - Select
-  - Working mode (state options: not enabled, self-consumption, battery priority, grid priority, time period control, power protection mode)
 
+  - Working mode (state options: not enabled, self-consumption, battery priority, grid priority, time period control, power protection mode)
 - Number
+
   - Battery discharge minimum SOC
   - Battery charge cutoff SOC
   - Battery discharge cutoff SOC
-  - Time period related control (6: Period 1, Period 2, Period 3, Period 4, Period 5, Period 6, if not set, the default value is 0)
-    - Period 1 start time
-    - Period 1 charge/discharge power percentage
-    - Period 1 end time
-    - Period 1 cutoff SOC
-  - Power protection time period configuration (6: Period 1, Period 2, Period 3, Period 4, Period 5, Period 6, if not set, the default value is 0)
-    - Period 1 SOC
-    - Period 1 start time
-    - Period 1 power
-  
-- Switch
-  - Time period control (Period 1-6)
-    - Period 1 enable
-    - Period 2 enable
-    - Period 3 enable
-    - Period 4 enable
-    - Period 5 enable
-    - Period 6 enable
-  - Power protection AC enable (Period 1-6)
-    - Period 1 AC enable
-    - Period 2 AC enable
-    - Period 3 AC enable
-    - Period 4 AC enable
-    - Period 5 AC enable
-    - Period 6 AC enable
 
 # Prerequisites
 
@@ -110,18 +89,66 @@ To use this integration, you need to have a corresponding Hinen Solar account an
 3. You will be redirected to the Hinen OAuth2 authentication page. Select your region and log in to your Hinen Solar account.
 4. If everything goes well, you will be redirected back to your Home Assistant instance for authorization, and a list of all available devices under your account will be displayed. Select the device(s) you want to add.
 
-# Custom Cards
-Optional: Simply configure custom card examples based on Hinen's related entities to achieve better control of Hinen devices
+# Custom Lovelace Cards
 
-To set up a custom card, you need to replace the **device identifier** with **your own device identifier**, the steps are as follows
+The integration includes custom Lovelace cards for advanced configuration of time-period settings. These cards provide a user-friendly interface for managing charge/discharge periods and power protection mode settings.
 
-1. Go to "**Home > Developer Tools > Templates**" and put the following yaml configuration into the template.
-2. Find any entity to view the entity identifier **to get the corresponding device identifier**. For example: device status entity (sensor.6kw_0048_status), the device identifier is "6kw_0048".
-3. Update the **device_name** variable value with your own device identifier
-4. Copy the generated yaml configuration
-5. Go to "**Home > Overview > Edit > Add Card > Manual Edit**", put the copied yaml configuration into the template and click finish
+## Installation
+
+After installing the integration, you need to register the card resources in Lovelace:
+
+1. Go to **Settings → Dashboards**
+2. Click the three-dot menu in the top right
+3. Select **Resources**
+4. Click **Add Resource**
+5. Add the following resources:
+
+   **For Charge/Discharge Period Card:**
+
+   ```
+   URL: /hinen_power/static/hinen-period-card.js
+   Type: JavaScript Module
+   ```
+
+   **For Power Protection Card:**
+
+   ```
+   URL: /hinen_power/static/hinen-power-protection-card.js
+   Type: JavaScript Module
+   ```
+6. Click **Create**
+
+## Card Configuration
+
+To configure custom cards, you need to replace the **device identifier** in the YAML configuration below with **your own device identifier**. Follow these steps:
+
+1. Go to **Home > Developer Tools > Templates**, and paste the following YAML configuration into the template editor.
+2. Find any entity and check its entity ID to **get the corresponding device identifier**. For example: for the device status entity `sensor.6kw_0048_status`, the device identifier is `6kw_0048`.
+3. Update the **device_name** variable value with your device identifier.
+4. Copy the generated YAML configuration.
+5. Go to **Home > Overview > Edit > Add Card > Manual**, paste the copied YAML configuration into the template, and click Done.
+
+### Charge/Discharge Period Card
+
+This card allows you to configure up to 20 time periods with:
+
+- Enable/disable for each period
+- Weekday selection (if supported by device)
+- Start/end time
+- Power rate
+- Stop SOC
+
+### Power Protection Card
+
+This card allows you to configure up to 6 time periods for power protection mode with:
+
+- AC enable for each period
+- Start time
+- SOC
+- Power
 
 ## VPP Company
+
 ```yaml
 {% set device_name = "device identifier" %}
 type: entities
@@ -135,11 +162,12 @@ visibility:
     state: none
 ```
 
-## Device Working Mode Settings (Note: Will be hidden when VPP Company exists)
+## Device Working Mode Settings
+
+This card will be hidden when VPP Company exists.
 
 ```yaml
 {% set device_name = "device identifier" %}
-
 type: entities
 entities:
   - entity: select.{{device_name}}_work_mode
@@ -155,7 +183,6 @@ visibility:
 
 ```yaml
 {% set device_name = "device identifier" %}
-
 type: entities
 entities:
   - entity: sensor.{{device_name}}_status
@@ -165,104 +192,73 @@ entities:
   - entity: sensor.{{device_name}}_battery_power
   - entity: sensor.{{device_name}}_grid_total_power
   - entity: sensor.{{device_name}}_total_battery_soc
-title: Working Mode Settings
+title: Device Information
 state_color: true
 ```
+
 ## Display attributes associated with each mode according to working mode (Note: Will be hidden when VPP Company exists)
+
+This card will be hidden when VPP Company exists.
 
 ```yaml
 {% set device_name = "device identifier" %}
-
 type: vertical-stack
 cards:
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: self_consumption
     card:
       type: entities
-      title: Self-consumption
+      title: Self Consumption Mode
       entities:
-        - entity: number.{{ device_name }}_load_first_stop_soc
-          name: Battery discharge minimum SOC
-          secondary_info: last-updated
-  
+        - entity: number.{{device_name}}_load_first_stop_soc
+          name: Load First Stop SOC
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: battery_priority
     card:
       type: entities
-      title: Battery priority
+      title: Battery Priority Mode
       entities:
-        - entity: number.{{ device_name }}_charge_stop_soc
-          secondary_info: last-updated
-          name: Battery charge cutoff SOC
-  
+        - entity: number.{{device_name}}_charge_stop_soc
+          name: Charge Stop SOC
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: grid_priority
     card:
       type: entities
-      title: Grid priority
+      title: Grid Priority Mode
       entities:
-        - entity: number.{{ device_name }}_grid_first_stop_soc
-          secondary_info: last-updated
-          name: Battery discharge cutoff SOC
-  
+        - entity: number.{{device_name}}_grid_first_stop_soc
+          name: Grid First Stop SOC
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: time_period
     card:
-      type: entities
-      title: ⚡Charge/Discharge Period Configuration
-      entities:
-        {% for period in range(1, 7) %}
-        - type: section
-          label: Period {{ period }}
-        - entity: switch.{{ device_name }}_charge_discharge_period_{{ period }}_enable
-          name: Enable
-        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_rate
-          name: Rate (%)
-        - entity: number.{{ device_name }}_charge_discharge_period_{{ period }}_stop_soc
-          name: Cutoff SOC (%)
-        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_start_time
-          name: Start Time
-        - entity: time.{{ device_name }}_charge_discharge_period_{{ period }}_end_time
-          name: End Time
-        {% endfor %}
-      show_header_toggle: false
-      state_color: true
-  
+      type: custom:hinen-period-card
+      entity: sensor.{{device_name}}_period_configuration
+      title: ⚡ Charge/Discharge Period Configuration
+
   - type: conditional
     conditions:
       - condition: state
-        entity: select.{{ device_name }}_work_mode
+        entity: select.{{device_name}}_work_mode
         state: power_keeping
     card:
-      type: entities
-      title: 🔋Power Protection Mode Configuration
-      entities:
-        {% for period in range(1, 7) %}
-        - type: section
-          label: Period {{ period }}
-        - entity: switch.{{ device_name }}_power_protection_period_{{ period }}_ac_enable
-          name: Enable
-        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_power
-          name: Power
-        - entity: time.{{ device_name }}_power_protection_period_{{ period }}_start_time
-          name: Start Time
-        - entity: number.{{ device_name }}_power_protection_period_{{ period }}_soc
-          name: SOC
-        {% endfor %}
-      show_header_toggle: false
-      state_color: true
+      type: custom:hinen-power-protection-card
+      entity: sensor.{{device_name}}_power_protection_mode_configuration
+      title: 🔋 Power Protection Mode Configuration
 visibility:
   - condition: state
     entity: sensor.{{device_name}}_vpp_company
