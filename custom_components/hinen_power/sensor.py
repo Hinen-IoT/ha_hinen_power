@@ -266,7 +266,7 @@ async def async_setup_entry(
                     coordinator, hinen_open, PERIOD_HELPER_TYPE, device_id
                 )
             )
-        
+
         # Helper sensor exposing full PowerProtectionModeTimePeriod array
         if device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD) is not None:
             entities.append(
@@ -312,7 +312,7 @@ class HinenPeriodHelperSensor(HinenDeviceEntity, SensorEntity):
         device_data = self.coordinator.data.get(self._device_id, {})
         cd_period = device_data.get(CD_PERIOD_TIMES2)
         periods = extract_property_value(cd_period) or []
-        
+
         # Check if device supports week configuration
         week_support_prop = device_data.get(CD_PERIOD_WEEK_SUPPORT)
         week_support = 0
@@ -320,8 +320,16 @@ class HinenPeriodHelperSensor(HinenDeviceEntity, SensorEntity):
             week_support_val = extract_property_value(week_support_prop)
             if week_support_val is not None:
                 # 如果是布尔值，True=1, False=0；如果是数字，直接用
-                week_support = 1 if week_support_val is True else (int(week_support_val) if str(week_support_val).isdigit() else 0)
-        
+                week_support = (
+                    1
+                    if week_support_val is True
+                    else (
+                        int(week_support_val)
+                        if str(week_support_val).isdigit()
+                        else 0
+                    )
+                )
+
         return {
             "cd_period_times2": periods,
             "cd_period_week_support": week_support,
@@ -348,7 +356,7 @@ class HinenPowerProtectionHelperSensor(HinenDeviceEntity, SensorEntity):
         device_data = self.coordinator.data.get(self._device_id, {})
         power_protection = device_data.get(POWER_PROTECTION_MODE_TIME_PERIOD)
         periods = extract_property_value(power_protection) or []
-        
+
         return {
             "power_protection_mode_time_period": periods,
             "api_device_id": self._device_id,

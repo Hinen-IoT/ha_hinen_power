@@ -37,26 +37,26 @@ def extract_property_specs(property_data: Any) -> dict[str, dict]:
     """
     if not isinstance(property_data, dict):
         return {}
-    
+
     # Get specs from property_data
     outer_specs = property_data.get("specs")
     if outer_specs is None:
         return {}
-    
+
     # Convert pydantic model to dict if needed
     if hasattr(outer_specs, "model_dump"):
         outer_specs = outer_specs.model_dump()
     elif hasattr(outer_specs, "dict") and not isinstance(outer_specs, dict):
         outer_specs = outer_specs.dict()  # type: ignore[attr-defined]
-    
+
     if not isinstance(outer_specs, dict):
         return {}
-    
+
     # For array-type specs, items are in "specs" field
     specs_list = outer_specs.get("specs")
     if not isinstance(specs_list, list):
         return {}
-    
+
     result: dict[str, dict] = {}
     for item in specs_list:
         if not isinstance(item, dict):
