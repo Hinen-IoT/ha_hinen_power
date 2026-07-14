@@ -116,13 +116,15 @@
       },
       "power_protection_mode_time_period_config": {
         "name": "保电模式配置"
+      },
+      "bat_settable_min_soc_level": {
+        "name": "电池可设置最小SOC"
       }
     },
     "select": {
       "work_mode_setting": {
         "name": "工作模式",
         "state": {
-          "none": "不启用",
           "self_consumption": "自发自用",
           "battery_priority": "电池优先",
           "grid_priority": "并网优先",
@@ -132,6 +134,9 @@
       }
     },
     "number": {
+      "bat_chg_max_soc": {
+        "name": "电池充电最大SOC"
+      },
       "load_first_stop_soc": {
         "name": "电池放电最小SOC"
       },
@@ -182,6 +187,12 @@
     },
     "invalid_week_enable": {
       "message": "PeriodWeekEnable必须为逗号分隔的0/1值（如\"1,0,1,1,1,0,0\"），实际值: {value}"
+    },
+    "discharge_min_exceeds_charge_max": {
+      "message": "电池放电最小SOC（{discharge_min}）不能超过电池充电最大SOC（{charge_max}）"
+    },
+    "soc_out_of_spec_range": {
+      "message": "{entity} 的SOC值（{value}）必须在 {min} 到 {max} 之间"
     }
   },
   "options": {

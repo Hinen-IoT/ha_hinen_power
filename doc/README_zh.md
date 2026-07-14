@@ -61,15 +61,17 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
   - 电池功率
   - 电网功率
   - 电池剩余容量
+  - 电池可设置最小SOC
   - VPP公司
   - 时段配置（用于自定义 Lovelace 卡片的辅助传感器）
   - 保电模式配置（用于自定义 Lovelace 卡片的辅助传感器）
 - 选择器
 
-  - 工作模式（状态选项：不启用、自发自用、电池优先、并网优先、时间段控制、保电模式）
+  - 工作模式（状态选项：自发自用、电池优先、并网优先、时间段控制、保电模式）
 - 数字
 
   - 电池放电最小SOC
+  - 电池充电最大SOC
   - 电池强充截止SOC
   - 电池强放截止SOC
 
@@ -115,7 +117,6 @@ Hinen Power 集成允许您将海能设备接入到Home Assistant，对于你添
    URL: /hinen_power/static/hinen-power-protection-card.js
    类型: JavaScript 模块
    ```
-6. 点击 **创建**
 
 ## 卡片配置
 
@@ -195,6 +196,22 @@ title: 设备信息
 state_color: true
 ```
 
+## 基础SOC设置
+
+此卡片显示通用的基础SOC设置
+
+```yaml
+{% set device_name = "设备标识" %}
+type: entities
+entities:
+  - entity: number.{{device_name}}_load_first_stop_soc
+    name: 电池放电最小SOC
+  - entity: number.{{device_name}}_charge_max_soc
+    name: 电池充电最大SOC
+title: 电池SOC设置
+state_color: true
+```
+
 ## 根据工作模式显示各个模式下关联的属性
 
 此卡片将在 VPP 公司存在时隐藏。
@@ -203,17 +220,6 @@ state_color: true
 {% set device_name = "设备标识" %}
 type: vertical-stack
 cards:
-  - type: conditional
-    conditions:
-      - condition: state
-        entity: select.{{device_name}}_work_mode
-        state: self_consumption
-    card:
-      type: entities
-      title: 自发自用模式
-      entities:
-        - entity: number.{{device_name}}_load_first_stop_soc
-          name: 负载优先截止 SOC
 
   - type: conditional
     conditions:

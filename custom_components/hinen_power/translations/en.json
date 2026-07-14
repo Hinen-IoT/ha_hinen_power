@@ -50,6 +50,9 @@
     },
     "entity": {
         "number": {
+            "bat_chg_max_soc": {
+                "name": "Battery Charge Max SOC"
+            },
             "charge_stop_soc": {
                 "name": "Charge Stop SOC"
             },
@@ -66,7 +69,6 @@
                 "state": {
                     "battery_priority": "Battery Priority",
                     "grid_priority": "Grid Priority",
-                    "none": "None",
                     "power_keeping": "Power Keeping",
                     "self_consumption": "Self Consumption",
                     "time_period": "Time Period"
@@ -140,6 +142,9 @@
             },
             "power_protection_mode_time_period_config": {
                 "name": "Power Protection Mode Configuration"
+            },
+            "bat_settable_min_soc_level": {
+                "name": "Battery Settable Min SOC Level"
             }
         }
     },
@@ -182,6 +187,12 @@
         },
         "invalid_week_enable": {
             "message": "PeriodWeekEnable must be comma-separated 0/1 values (e.g. \"1,0,1,1,1,0,0\"), got {value}"
+        },
+        "discharge_min_exceeds_charge_max": {
+            "message": "Battery discharge minimum SOC ({discharge_min}) must not exceed battery charge maximum SOC ({charge_max})"
+        },
+        "soc_out_of_spec_range": {
+            "message": "SOC value ({value}) for {entity} must be between {min} and {max}"
         }
     },
     "options": {

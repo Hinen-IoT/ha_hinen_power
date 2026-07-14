@@ -51,7 +51,6 @@ WORK_MODE_POWER_KEEPING = 14
 
 # HA-specific translation keys for work modes
 WORK_MODE_OPTIONS = {
-    WORK_MODE_NONE: "none",
     WORK_MODE_SELF_CONSUMPTION: "self_consumption",
     WORK_MODE_BATTERY_PRIORITY: "battery_priority",
     WORK_MODE_GRID_PRIORITY: "grid_priority",
@@ -63,6 +62,8 @@ WORK_MODE_SETTING = "work_mode_setting"
 LOAD_FIRST_STOP_SOC = "load_first_stop_soc"
 CHARGE_STOP_SOC = "charge_stop_soc"
 GRID_FIRST_STOP_SOC = "grid_first_stop_soc"
+BAT_CHG_MAX_SOC = "bat_chg_max_soc"
+BAT_SETTABLE_MIN_SOC_LEVEL = "bat_settable_min_soc_level"
 CHARGE_POWER_SET = "charge_power_set"
 DISCHARGE_POWER_SET = "discharge_power_set"
 CD_PERIOD_TIMES2 = "cd_period_times2"
@@ -118,6 +119,8 @@ PROPERTIES = {
     LOAD_FIRST_STOP_SOC: "LoadFirstStopSOC",
     CHARGE_STOP_SOC: "ChargeStopSOC",
     GRID_FIRST_STOP_SOC: "GridFirstStopSOC",
+    BAT_CHG_MAX_SOC: "BatChgMaxSoc",
+    BAT_SETTABLE_MIN_SOC_LEVEL: "BatSettableMinSocLevel",
     CD_PERIOD_TIMES2: "CDPeriodTimes2",
     CD_PERIOD_WEEK_SUPPORT: "CDPeriodWeekSupport",
     POWER_PROTECTION_MODE_TIME_PERIOD: "PowerProtectionModeTimePeriod",

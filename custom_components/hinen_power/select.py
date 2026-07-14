@@ -19,6 +19,7 @@ from .const import (
     PROPERTIES,
     WORK_MODE_NONE,
     WORK_MODE_OPTIONS,
+    WORK_MODE_SELF_CONSUMPTION,
     WORK_MODE_SETTING,
 )
 from .coordinator import HinenDataUpdateCoordinator
@@ -89,7 +90,10 @@ class HinenWorkModeSelect(HinenDeviceEntity, SelectEntity):
 
         mode = extract_property_value(work_mode_data)
         _LOGGER.debug("current mode_value: %s", mode)
-        return WORK_MODE_OPTIONS.get(mode, WORK_MODE_OPTIONS[WORK_MODE_NONE])
+        # API mode 0 (WORK_MODE_NONE) maps to self_consumption for display purposes
+        if mode == WORK_MODE_NONE:
+            mode = WORK_MODE_SELF_CONSUMPTION
+        return WORK_MODE_OPTIONS.get(mode, WORK_MODE_OPTIONS[WORK_MODE_SELF_CONSUMPTION])
 
     async def async_select_option(self, option: str) -> None:
         """Change the work mode."""

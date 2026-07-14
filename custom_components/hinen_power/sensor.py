@@ -24,6 +24,7 @@ from .const import (
     ATTR_ALERT_STATUS,
     ATTR_STATUS,
     AUTH,
+    BAT_SETTABLE_MIN_SOC_LEVEL,
     BATTERY_POWER,
     CD_PERIOD_TIMES2,
     CD_PERIOD_WEEK_SUPPORT,
@@ -47,7 +48,7 @@ from .const import (
 )
 from .coordinator import HinenDataUpdateCoordinator
 from .entity import HinenDeviceEntity
-from .utils import extract_property_specs, extract_property_value
+from .utils import extract_property_specs, extract_property_value, resolve_enum_percentage_value
 
 
 def _is_property_available(device_detail: dict, key: str) -> bool:
@@ -201,6 +202,15 @@ SENSOR_TYPES = [
             extract_property_value(device_detail.get(VPP_TYPE)),
             VPP_TYPE_OPTIONS[VPP_TYPE_NONE]
         ),
+    ),
+    # Battery settable min SOC level (read-only enum sensor)
+    HinenSensorEntityDescription(
+        key=BAT_SETTABLE_MIN_SOC_LEVEL,
+        translation_key=BAT_SETTABLE_MIN_SOC_LEVEL,
+        available_fn=lambda d: _is_property_available(d, BAT_SETTABLE_MIN_SOC_LEVEL),
+        value_fn=lambda d: resolve_enum_percentage_value(d, BAT_SETTABLE_MIN_SOC_LEVEL),
+        native_unit_of_measurement=PERCENTAGE,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 ]
 

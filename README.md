@@ -62,15 +62,17 @@ The Hinen Power integration allows you to connect Hinen devices to Home Assistan
   - Battery power
   - Grid total power
   - Total Battery SoC
+  - Battery Settable Min SOC Level
   - VPP Company
   - Period Configuration (helper sensor for custom Lovelace card)
   - Power Protection Mode Configuration (helper sensor for custom Lovelace card)
 - Select
 
-  - Working mode (state options: not enabled, self-consumption, battery priority, grid priority, time period control, power protection mode)
+  - Working mode (state options: self-consumption, battery priority, grid priority, time period control, power protection mode)
 - Number
 
   - Battery discharge minimum SOC
+  - Battery charge maximum SOC
   - Battery charge cutoff SOC
   - Battery discharge cutoff SOC
 
@@ -116,7 +118,6 @@ After installing the integration, you need to register the card resources in Lov
    URL: /hinen_power/static/hinen-power-protection-card.js
    Type: JavaScript Module
    ```
-6. Click **Create**
 
 ## Card Configuration
 
@@ -196,6 +197,22 @@ title: Device Information
 state_color: true
 ```
 
+## Base SOC Settings
+
+This card shows common base SOC settings, with lower limits dynamically determined by the Battery Settable Min SOC Level sensor.
+
+```yaml
+{% set device_name = "device identifier" %}
+type: entities
+entities:
+  - entity: number.{{device_name}}_load_first_stop_soc
+    name: Load First Stop SOC
+  - entity: number.{{device_name}}_charge_max_soc
+    name: Battery Charge Max SOC
+title: Base SOC Settings
+state_color: true
+```
+
 ## Display attributes associated with each mode according to working mode (Note: Will be hidden when VPP Company exists)
 
 This card will be hidden when VPP Company exists.
@@ -204,17 +221,6 @@ This card will be hidden when VPP Company exists.
 {% set device_name = "device identifier" %}
 type: vertical-stack
 cards:
-  - type: conditional
-    conditions:
-      - condition: state
-        entity: select.{{device_name}}_work_mode
-        state: self_consumption
-    card:
-      type: entities
-      title: Self Consumption Mode
-      entities:
-        - entity: number.{{device_name}}_load_first_stop_soc
-          name: Load First Stop SOC
 
   - type: conditional
     conditions:

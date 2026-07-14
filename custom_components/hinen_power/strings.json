@@ -116,7 +116,6 @@
       "work_mode_setting": {
         "name": "Work Mode",
         "state": {
-          "none": "None",
           "self_consumption": "Self Consumption",
           "battery_priority": "Battery Priority",
           "grid_priority": "Grid Priority",
