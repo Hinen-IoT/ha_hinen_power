@@ -206,7 +206,7 @@ type: entities
 entities:
   - entity: number.{{device_name}}_load_first_stop_soc
     name: 电池放电最小SOC
-  - entity: number.{{device_name}}_charge_max_soc
+  - entity: number.{{device_name}}_battery_charge_max_soc
     name: 电池充电最大SOC
 title: 电池SOC设置
 state_color: true

@@ -207,7 +207,7 @@ type: entities
 entities:
   - entity: number.{{device_name}}_load_first_stop_soc
     name: Load First Stop SOC
-  - entity: number.{{device_name}}_charge_max_soc
+  - entity: number.{{device_name}}_battery_charge_max_soc
     name: Battery Charge Max SOC
 title: Base SOC Settings
 state_color: true
